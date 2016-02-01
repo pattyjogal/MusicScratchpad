@@ -1,0 +1,6 @@
+Build 001:
+- Added a material design theme, as well as a fallback for API Levels under 21.
+- Added a sliding navigation menu
+- Changed color scheme
+- Seperated theme files
+- Updated Android gradle plugin
