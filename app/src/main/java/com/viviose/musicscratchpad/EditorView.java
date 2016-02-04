@@ -23,8 +23,8 @@ public class EditorView extends View {
     Canvas can;
     Context conx;
     private static final String TAG = "EditorView";
-    private final float NOTE_WIDTH = 200;
-    private final float NOTE_HEIGHT = 120;
+    private final float NOTE_WIDTH = 150;
+    private final float NOTE_HEIGHT = 100;
     Paint paint = new Paint();
     private Bitmap mBitmap;
     private Canvas mCanvas;
@@ -62,7 +62,6 @@ public class EditorView extends View {
     @Override
     @TargetApi(21)
     public void onDraw(Canvas c){
-        can = c;
         paint.setStrokeWidth(10);
         c.drawLine(20, 500, x - 20, 500, paint);
         c.drawLine(20, 700, x - 20, 700, paint);
@@ -70,8 +69,7 @@ public class EditorView extends View {
         c.drawLine(20, 1100, x - 20, 1100, paint);
         c.drawLine(20, 1300, x - 20, 1300, paint);
         if (drawNote){
-            c.drawOval(touchX - NOTE_WIDTH, touchY - NOTE_HEIGHT, touchX + NOTE_WIDTH, touchY + NOTE_HEIGHT, paint);
-            drawNote = false;
+            drawNoteHead(touchX, touchY, c);
         }
 
     }
@@ -99,13 +97,9 @@ public class EditorView extends View {
         return true;
     }
     @TargetApi(21)
-    private void drawNoteHead(float x, float y) {
-        Bitmap bmp = Bitmap.createBitmap(64,64, Bitmap.Config.ARGB_8888);
-        Canvas c = new Canvas(bmp);
-        mBitmap = bmp;
-        mCanvas = c;
-
-
+    private void drawNoteHead(float x, float y,Canvas canvas) {
+        Note note = new Note(x,y);
+        canvas.drawOval(note.x - NOTE_WIDTH, note.y - NOTE_HEIGHT, note.x + NOTE_WIDTH, note.y + NOTE_HEIGHT, paint);
     }
 
 
