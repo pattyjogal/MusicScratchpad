@@ -14,4 +14,4 @@ compositions on the phone, and will hopefully grow and develop with user feedbac
 * Play your music using built-in MIDI playback
 
 ### Recent Screencaps:
-![Demo](https://gfycat.com/DecisiveAnyBison)
+![Demo](https://zippy.gfycat.com/DecisiveAnyBison.gif)
