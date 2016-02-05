@@ -122,19 +122,19 @@ public class EditorView extends View {
                 Log.i("Media Playing:", "Player should have played!");
             }
         });
-       /* mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
                 Log.i("Completion Listener", "Song Complete");
-                mp.stop();
-                mp.reset();
+                mp.release();
 
             }
-        });*/
+        });
         try {
             mediaPlayer.prepareAsync();
         }catch(Exception e){
             Log.println(100, "Whoopsie", e.toString());
         }
+
 
         canvas.drawOval(note.x - NOTE_WIDTH, note.y - NOTE_HEIGHT, note.x + NOTE_WIDTH, note.y + NOTE_HEIGHT, paint);
 
