@@ -3,23 +3,32 @@ package com.viviose.musicscratchpad;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.view.WindowManager;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+
 /**
  * Created by Patrick on 2/2/2016.
  */
 public class EditorView extends View {
+
     Canvas can;
     Context conx;
     private static final String TAG = "EditorView";
@@ -97,9 +106,39 @@ public class EditorView extends View {
         return true;
     }
     @TargetApi(21)
-    private void drawNoteHead(float x, float y,Canvas canvas) {
+    private void drawNoteHead(float x, float y,Canvas canvas){
+        MediaPlayer mediaPlayer = new MediaPlayer();
         Note note = new Note(x,y);
+
+        try {
+            mediaPlayer.setDataSource(getContext(), Uri.parse("android.resource://com.viviose.musicscratchpad/raw/" + note.name.toString() + Integer.toString(note.octave)));
+        } catch(Exception e){
+            Log.println(100, "Whoopsie", e.toString());
+        }
+        Log.i("Media Playing:", "Player created!");
+        mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            public void onPrepared(MediaPlayer player) {
+                player.start();
+                Log.i("Media Playing:", "Player should have played!");
+            }
+        });
+       /* mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            public void onCompletion(MediaPlayer mp) {
+                Log.i("Completion Listener", "Song Complete");
+                mp.stop();
+                mp.reset();
+
+            }
+        });*/
+        try {
+            mediaPlayer.prepareAsync();
+        }catch(Exception e){
+            Log.println(100, "Whoopsie", e.toString());
+        }
+
         canvas.drawOval(note.x - NOTE_WIDTH, note.y - NOTE_HEIGHT, note.x + NOTE_WIDTH, note.y + NOTE_HEIGHT, paint);
+
+
     }
 
 

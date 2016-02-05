@@ -1,33 +1,84 @@
 package com.viviose.musicscratchpad;
 
+import android.util.DisplayMetrics;
+
+import java.util.ArrayList;
+
 /**
  * Created by Patrick on 2/3/2016.
  */
-public class Note {
+public class Note{
     public float x;
     public float y;
-    //NoteName name;
+    NoteName name;
+    int octave;
     public enum NoteName{
-        C,
-        Cs,
-        D,
-        Ds,
-        E,
-        F,
-        G,
-        Gs,
-        A,
-        As,
-        B
+        c,
+        cs,
+        d,
+        ds,
+        e,
+        f,
+        fs,
+        g,
+        gs,
+        a,
+        as,
+        b
     }
+    private NoteName[] altoStandardNotes = {NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g};
     public enum Clef{
         ALTO,
         TREBLE,
         BASS
     }
+
+    public class NotePosn{
+        NoteName noteName;
+        float yLower;
+        float yUpper;
+        public NotePosn(NoteName n, float yL, float yU){
+            noteName = n;
+            yLower = yL;
+            yUpper = yU;
+        }
+    }
+
+    private ArrayList ALTO_POSN = new ArrayList();
+
+    private ArrayList<NotePosn> getNotePosn(float y, Clef clef){
+        NoteName[] iterArray = new NoteName[9];
+        ArrayList<NotePosn> res = new ArrayList();
+        switch (clef){
+            case ALTO:
+                iterArray = altoStandardNotes;
+                res = ALTO_POSN;
+        }
+        for (int i = 8; i > -1; i--){
+            float yL = 1250 - 100 * i;
+            float yU = 1350 - 100 * i;
+            res.add(new NotePosn(iterArray[i], yL, yU));
+        }
+        return res;
+    }
+
+    private NoteName getNoteFromPosn(float y, Clef clef){
+        ArrayList<NotePosn> noteList = getNotePosn(y, clef);
+        for (int i = 0; i < noteList.size(); i++) {
+            if (y > noteList.get(i).yLower && y <= noteList.get(i).yUpper){
+                return noteList.get(i).noteName;
+            }
+        }
+        return NoteName.c;
+    }
+
+
     public Note(float xC, float yC){
         x = xC;
         y = snapNoteY(yC);
+        name = getNoteFromPosn(yC, Clef.ALTO);
+        octave = 3;
+
     }
 
 
@@ -36,26 +87,28 @@ public class Note {
         float snapY;
 
         if (450 <= y && 550 >= y) {
-            return 500;
+            snapY = 500;
         }else if (550 < y && 650 >= y){
-            return 600;
+            snapY = 600;
         }else if (650 < y && 750 >= y){
-            return 700;
+            snapY = 700;
         }else if (750 < y && 850 >= y){
-            return 800;
+            snapY = 800;
         }else if (850 < y && 950 >= y){
-            return 900;
+            snapY = 900;
         }else if (950 < y && 1050 >= y){
-            return 1000;
+            snapY = 1000;
         }else if (1050 < y && 1150 >= y){
-            return 1100;
+            snapY = 1100;
         }else if (1150 < y && 1250 >= y){
-            return 1200;
+            snapY = 1200;
         }else if (1250 < y && 1350 >= y){
-            return 1300;
+            snapY = 1300;
+        }else{
+            snapY = -1000;
         }
 
-        return -100;
+        return snapY;
     }
 
 
