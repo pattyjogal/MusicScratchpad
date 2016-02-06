@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.Size;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -70,8 +71,9 @@ public class EditorView extends View {
         c.drawLine(20, 1300, x - 20, 1300, paint);
 
         Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.alto_clef);
-        Bitmap scaledBitmap = scaleDown(b, 900, true);
-        c.drawBitmap(scaledBitmap,20,500,paint);
+        //Bitmap scaledBitmap = scaleDown(b, 900, true);
+        
+        c.drawBitmap(Bitmap.createScaledBitmap(b,500,800,true),1,500,paint);
 
         if (drawNote){
             drawNoteHead(touchX, touchY, c);
