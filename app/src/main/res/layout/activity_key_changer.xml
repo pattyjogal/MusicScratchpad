@@ -7,19 +7,120 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     tools:openDrawer="start">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <LinearLayout
+        android:id="@+id/row1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal" >
 
-    <include
+
+
+            <Button
+                android:id="@+id/key_c"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="♮"
+                android:gravity="center_horizontal|center_vertical"
+                 />
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/key_g"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="♯"
+                android:gravity="center_horizontal|center_vertical"
+                 />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/key_d"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="♯♯"
+                android:gravity="center_horizontal|center_vertical"
+                 />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/key_a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="♯♯♯"
+                android:gravity="center_horizontal|center_vertical"
+                 />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/key_e"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="♯♯♯♯"
+                android:gravity="center_horizontal|center_vertical"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/key_b"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="♯♯♯♯"
+                android:gravity="center_horizontal|center_vertical"
+                />
+        </LinearLayout>
+    </LinearLayout>
+    </FrameLayout>
+
+        <include
         layout="@layout/app_bar_key_changer"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
     <android.support.design.widget.NavigationView
+
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_key_changer"
-        app:menu="@menu/activity_main_drawer" />
+        app:menu="@menu/activity_main_drawer"
+        android:clickable="false" />
+
+
 
 </android.support.v4.widget.DrawerLayout>
