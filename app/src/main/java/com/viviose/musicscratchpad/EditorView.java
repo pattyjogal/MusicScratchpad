@@ -70,7 +70,7 @@ public class EditorView extends View {
         c.drawLine(20, 1300, x - 20, 1300, paint);
 
         Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.alto_clef);
-        Bitmap scaledBitmap = scaleDown(b, 800, true);
+        Bitmap scaledBitmap = scaleDown(b, 900, true);
         c.drawBitmap(scaledBitmap,20,500,paint);
 
         if (drawNote){
