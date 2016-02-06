@@ -70,13 +70,27 @@ public class EditorView extends View {
         c.drawLine(20, 1300, x - 20, 1300, paint);
 
         Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.alto_clef);
-        c.drawBitmap(b,100,100,paint);
+        Bitmap scaledBitmap = scaleDown(b, 800, true);
+        c.drawBitmap(scaledBitmap,20,500,paint);
 
         if (drawNote){
             drawNoteHead(touchX, touchY, c);
 
         }
 
+    }
+    //Thanks to Padma Kumar
+    public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
+                                   boolean filter) {
+        float ratio = Math.min(
+                (float) maxImageSize / realImage.getWidth(),
+                (float) maxImageSize / realImage.getHeight());
+        int width = Math.round((float) ratio * realImage.getWidth());
+        int height = Math.round((float) ratio * realImage.getHeight());
+
+        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
+                height, filter);
+        return newBitmap;
     }
 
     @Override
