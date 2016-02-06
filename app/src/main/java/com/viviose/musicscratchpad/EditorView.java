@@ -1,28 +1,19 @@
 package com.viviose.musicscratchpad;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Point;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Display;
 import android.view.MotionEvent;
-import android.view.SurfaceView;
 import android.view.View;
-import android.view.WindowManager;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
 
 /**
  * Created by Patrick on 2/2/2016.
@@ -77,8 +68,13 @@ public class EditorView extends View {
         c.drawLine(20, 900, x - 20, 900, paint);
         c.drawLine(20, 1100, x - 20, 1100, paint);
         c.drawLine(20, 1300, x - 20, 1300, paint);
+
+        Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.alto_clef);
+        c.drawBitmap(b,100,100,paint);
+
         if (drawNote){
             drawNoteHead(touchX, touchY, c);
+
         }
 
     }
