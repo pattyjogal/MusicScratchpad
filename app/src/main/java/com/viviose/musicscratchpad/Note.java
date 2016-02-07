@@ -11,7 +11,7 @@ public class Note{
     public float x;
     public float y;
     NoteName name;
-    int octave;
+    int octave = Octave.octave;
     public enum NoteName{
         c,
         cs,
@@ -37,10 +37,12 @@ public class Note{
         NoteName noteName;
         float yLower;
         float yUpper;
-        public NotePosn(NoteName n, float yL, float yU){
+        int octave;
+        public NotePosn(NoteName n, float yL, float yU, int oct){
             noteName = n;
             yLower = yL;
             yUpper = yU;
+            octave = oct;
         }
     }
 
@@ -57,7 +59,14 @@ public class Note{
         for (int i = 8; i > -1; i--){
             float yL = 1250 - 100 * i;
             float yU = 1350 - 100 * i;
-            res.add(new NotePosn(iterArray[i], yL, yU));
+            int o = octave;
+            if (clef == Clef.ALTO){
+                if (i < 4){
+                    o = octave - 1;
+                }
+            }
+
+            res.add(new NotePosn(iterArray[i], yL, yU, o));
         }
         return res;
     }
@@ -66,6 +75,7 @@ public class Note{
         ArrayList<NotePosn> noteList = getNotePosn(y, clef);
         for (int i = 0; i < noteList.size(); i++) {
             if (y > noteList.get(i).yLower && y <= noteList.get(i).yUpper){
+                octave = noteList.get(i).octave;
                 return noteList.get(i).noteName;
             }
         }
@@ -73,11 +83,12 @@ public class Note{
     }
 
 
+
+
     public Note(float xC, float yC){
         x = xC;
         y = snapNoteY(yC);
         name = getNoteFromPosn(yC, Clef.ALTO);
-        octave = 3;
 
     }
 

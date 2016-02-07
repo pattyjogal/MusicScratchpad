@@ -73,7 +73,7 @@ public class EditorView extends View {
         Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.alto_clef);
         //Bitmap scaledBitmap = scaleDown(b, 900, true);
         
-        c.drawBitmap(Bitmap.createScaledBitmap(b,500,800,true),1,500,paint);
+        c.drawBitmap(Bitmap.createScaledBitmap(b,500,910,true),1,445,paint);
 
         if (drawNote){
             drawNoteHead(touchX, touchY, c);

@@ -10,6 +10,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.viviose.musicscratchpad.EditorView
             android:id="@+id/editor_canvas"
             android:layout_width="match_parent"
