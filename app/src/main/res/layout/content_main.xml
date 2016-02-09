@@ -15,15 +15,55 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="top">
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/inc_octave"
-        android:src="@drawable/plus_octave"
-        android:layout_centerInParent="true"
-        android:foregroundGravity="top"
-        android:background="#FFF"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:gravity="center_horizontal"
+            android:layout_alignParentTop="true">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/inc_octave"
+                android:src="@drawable/plus_octave"
+                android:layout_centerInParent="true"
+                android:foregroundGravity="top"
+                android:background="#FFF"
 
-        />
-        </RelativeLayout>
+                />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:gravity="center_horizontal"
+            android:layout_alignParentBottom="true"
+            >
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/dec_octave"
+                android:src="@drawable/minus_octave"
+                android:layout_centerInParent="true"
+                android:layout_alignParentLeft="true"
+                android:foregroundGravity="top"
+                android:background="#FFF"
+
+                />
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
 </RelativeLayout>
+    </RelativeLayout>

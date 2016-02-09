@@ -26,12 +26,8 @@ public class Note{
         as,
         b
     }
-    private NoteName[] altoStandardNotes = {NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g};
-    public enum Clef{
-        ALTO,
-        TREBLE,
-        BASS
-    }
+    private NoteName[] altoStandardNotes = {NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b};
+    private NoteName[] trebleStandardNotes = {NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a};
 
     public class NotePosn{
         NoteName noteName;
@@ -55,13 +51,23 @@ public class Note{
             case ALTO:
                 iterArray = altoStandardNotes;
                 res = ALTO_POSN;
+                break;
+            case TREBLE:
+                iterArray = trebleStandardNotes;
+                res = ALTO_POSN;
+                break;
         }
-        for (int i = 8; i > -1; i--){
-            float yL = 1250 - 100 * i;
-            float yU = 1350 - 100 * i;
+        for (int i = 13; i > -1; i--){
+            float yL = 1550 - 100 * i;
+            float yU = 1650 - 100 * i;
             int o = octave;
             if (clef == Clef.ALTO){
-                if (i < 4){
+                if (i < 7){
+                    o = octave - 1;
+                }
+            }else if (clef == Clef.TREBLE){
+                if (i < 8){
+
                     o = octave - 1;
                 }
             }
@@ -79,6 +85,7 @@ public class Note{
                 return noteList.get(i).noteName;
             }
         }
+        octave += 1;
         return NoteName.c;
     }
 
@@ -88,12 +95,12 @@ public class Note{
     public Note(float xC, float yC){
         x = xC;
         y = snapNoteY(yC);
-        name = getNoteFromPosn(yC, Clef.ALTO);
+        name = getNoteFromPosn(yC, ClefSetting.clef);
 
     }
 
 
-
+//Change this to a rounding statement
     private float snapNoteY(float y) {
         float snapY;
 
@@ -113,8 +120,18 @@ public class Note{
             snapY = 1100;
         }else if (1150 < y && 1250 >= y){
             snapY = 1200;
-        }else if (1250 < y && 1350 >= y){
+        }else if (1250 < y && 1350 >= y) {
             snapY = 1300;
+        }else if (350 <= y && 450 >= y){
+            snapY = 400;
+        }else if (250 <= y && 350 >= y){
+            snapY = 300;
+        }else if (1350 <= y && 1450 >= y){
+            snapY = 1400;
+        }else if (1450 <= y && 1550 >= y){
+            snapY = 1500;
+        }else if (1550 <= y && 1650 >= y){
+            snapY = 1600;
         }else{
             snapY = -1000;
         }

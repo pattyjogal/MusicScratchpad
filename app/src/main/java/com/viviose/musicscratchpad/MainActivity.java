@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.media.AudioManager;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Setting the correct medio stream
+        //Setting the correct media stream
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
         ImageButton upInc = (ImageButton) findViewById(R.id.inc_octave);
@@ -40,6 +41,14 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Octave.octave += 1;
+            }
+        });
+
+        ImageButton downDec = (ImageButton) findViewById(R.id.dec_octave);
+        downDec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Octave.octave -= 1;
             }
         });
 
@@ -97,8 +106,9 @@ public class MainActivity extends AppCompatActivity
             Intent sendToKeys = new Intent(this, KeyChanger.class);
             startActivity(sendToKeys);
 
-        } else if (id == R.id.nav_slideshow) {
-
+        } else if (id == R.id.nav_clefs) {
+            Intent sendToClefs = new Intent(this, ClefChanger.class);
+            startActivity(sendToClefs);
         } else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {

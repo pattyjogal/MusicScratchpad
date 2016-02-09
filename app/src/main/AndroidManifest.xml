@@ -27,6 +27,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.viviose.musicscratchpad.MainActivity" />
         </activity>
+        <activity
+            android:name=".ClefChanger"
+            android:label="@string/title_activity_clef_changer"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.viviose.musicscratchpad.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

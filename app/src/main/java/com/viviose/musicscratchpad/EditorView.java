@@ -147,6 +147,13 @@ public class EditorView extends View {
             Log.println(100, "Whoopsie", e.toString());
         }
 
+        if (y <= 450){
+            canvas.drawLine(x - 200, 300, x + 200, 300, paint);
+        }
+        if (y >=1350){
+            canvas.drawLine(x - 200, 1500, x + 200, 1500, paint);
+        }
+
 
         canvas.drawOval(note.x - NOTE_WIDTH, note.y - NOTE_HEIGHT, note.x + NOTE_WIDTH, note.y + NOTE_HEIGHT, paint);
 
