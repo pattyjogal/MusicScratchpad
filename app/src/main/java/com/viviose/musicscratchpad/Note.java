@@ -26,8 +26,9 @@ public class Note{
         as,
         b
     }
-    private NoteName[] altoStandardNotes = {NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b};
-    private NoteName[] trebleStandardNotes = {NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a};
+    private NoteName[] altoStandardNotes =      {NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b};
+    private NoteName[] trebleStandardNotes =    {NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a};
+    private NoteName[] bassStandardNotes =      {NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c};
 
     public class NotePosn{
         NoteName noteName;
@@ -55,7 +56,12 @@ public class Note{
             case TREBLE:
                 iterArray = trebleStandardNotes;
                 res = ALTO_POSN;
+                Octave.octave = 5;
                 break;
+            case BASS:
+                iterArray = bassStandardNotes;
+                res = ALTO_POSN;
+                Octave.octave = 4;
         }
         for (int i = 13; i > -1; i--){
             float yL = 1550 - 100 * i;
@@ -70,6 +76,13 @@ public class Note{
 
                     o = octave - 1;
                 }
+            }else if (clef == Clef.BASS) {
+                if (i < 6) {
+                    o = octave - 2;
+                }else if ( i < 13 && i >= 6){
+                    o = octave - 1;
+                }
+
             }
 
             res.add(new NotePosn(iterArray[i], yL, yU, o));

@@ -70,11 +70,18 @@ public class EditorView extends View {
         c.drawLine(20, 1100, x - 20, 1100, paint);
         c.drawLine(20, 1300, x - 20, 1300, paint);
 
-        Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.alto_clef);
-        //Bitmap scaledBitmap = scaleDown(b, 900, true);
-        
-        c.drawBitmap(Bitmap.createScaledBitmap(b,500,910,true),1,445,paint);
+        if (ClefSetting.clef == Clef.ALTO) {
+            Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.alto_clef);
+            //Bitmap scaledBitmap = scaleDown(b, 900, true);
 
+            c.drawBitmap(Bitmap.createScaledBitmap(b, 500, 910, true), 1, 445, paint);
+        } else if (ClefSetting.clef == Clef.TREBLE){
+            Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.treble_clef);
+            c.drawBitmap(Bitmap.createScaledBitmap(b, 420, 1200, true), 1, 380, paint);
+        } else if (ClefSetting.clef == Clef.BASS){
+            Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.bass_clef);
+            c.drawBitmap(Bitmap.createScaledBitmap(b, 420, 610, true), 20, 500, paint);
+        }
         if (drawNote){
             drawNoteHead(touchX, touchY, c);
 
