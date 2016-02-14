@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity
         actionView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                vibTest();
+                Toast t = Toast.makeText(getApplicationContext(), "Tapped", Toast.LENGTH_SHORT);
             }
         });
     }
