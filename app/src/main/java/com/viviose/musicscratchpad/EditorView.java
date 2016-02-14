@@ -128,22 +128,21 @@ public class EditorView extends View {
     private void drawNoteHead(float x, float y,Canvas canvas){
         MediaPlayer mediaPlayer = new MediaPlayer();
         Note note = new Note(x,y);
-
+        MusicStore.activeNotes.add(note);
         try {
             mediaPlayer.setDataSource(getContext(), Uri.parse("android.resource://com.viviose.musicscratchpad/raw/" + note.name.toString() + Integer.toString(note.octave)));
         } catch(Exception e){
-            Log.println(100, "Whoopsie", e.toString());
+
         }
         Log.i("Media Playing:", "Player created!");
         mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             public void onPrepared(MediaPlayer player) {
                 player.start();
-                Log.i("Media Playing:", "Player should have played!");
+
             }
         });
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
-                Log.i("Completion Listener", "Song Complete");
                 mp.release();
 
             }
@@ -151,7 +150,7 @@ public class EditorView extends View {
         try {
             mediaPlayer.prepareAsync();
         }catch(Exception e){
-            Log.println(100, "Whoopsie", e.toString());
+
         }
 
         if (y <= 450){

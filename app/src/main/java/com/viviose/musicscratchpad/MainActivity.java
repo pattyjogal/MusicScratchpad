@@ -7,11 +7,15 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.media.AudioManager;
 import android.media.Image;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.AppCompatImageButton;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,6 +29,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import android.os.Vibrator;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -63,6 +69,44 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MusicStore.sheet.add(MusicStore.activeNotes);
+                for (Note note : MusicStore.activeNotes){
+                    MediaPlayer mediaPlayer = new MediaPlayer();
+                    try {
+                        mediaPlayer.setDataSource(getApplicationContext(), Uri.parse("android.resource://com.viviose.musicscratchpad/raw/" + note.name.toString() + Integer.toString(note.octave)));
+                    } catch(Exception e){
+
+                    }
+                    Log.i("Media Playing:", "Player created!");
+                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                        public void onPrepared(MediaPlayer player) {
+                            player.start();
+
+                        }
+                    });
+                    mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                        public void onCompletion(MediaPlayer mp) {
+                            mp.release();
+
+                        }
+                    });
+                    try {
+                        mediaPlayer.prepareAsync();
+                    }catch(Exception e){
+
+                    }
+                    SystemClock.sleep(7000);
+
+                }
+                MusicStore.activeNotes = new ArrayList<Note>();
+            }
+        });
+
 
         Menu menu = navigationView.getMenu();
         MenuItem menuItem = menu.findItem(R.id.nav_switch);
