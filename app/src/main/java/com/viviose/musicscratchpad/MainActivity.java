@@ -74,36 +74,46 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MusicStore.sheet.add(MusicStore.activeNotes);
-                for (Note note : MusicStore.activeNotes){
-                    MediaPlayer mediaPlayer = new MediaPlayer();
-                    try {
-                        mediaPlayer.setDataSource(getApplicationContext(), Uri.parse("android.resource://com.viviose.musicscratchpad/raw/" + note.name.toString() + Integer.toString(note.octave)));
-                    } catch(Exception e){
+                new Thread() {
+                    @Override
+                            public void run() {
+                        MusicStore.sheet.add(MusicStore.activeNotes);
+                        for (
+                                Note note
+                                : MusicStore.activeNotes)
 
-                    }
-                    Log.i("Media Playing:", "Player created!");
-                    mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        public void onPrepared(MediaPlayer player) {
-                            player.start();
+                        {
+                            MediaPlayer mediaPlayer = new MediaPlayer();
+                            try {
+                                mediaPlayer.setDataSource(getApplicationContext(), Uri.parse("android.resource://com.viviose.musicscratchpad/raw/" + note.name.toString() + Integer.toString(note.octave)));
+                            } catch (Exception e) {
+
+                            }
+                            Log.i("Media Playing:", "Player created!");
+                            mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                                public void onPrepared(MediaPlayer player) {
+                                    player.start();
+
+                                }
+                            });
+                            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                                public void onCompletion(MediaPlayer mp) {
+                                    mp.release();
+
+                                }
+                            });
+                            try {
+                                mediaPlayer.prepareAsync();
+                            } catch (Exception e) {
+
+                            }
+
 
                         }
-                    });
-                    mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                        public void onCompletion(MediaPlayer mp) {
-                            mp.release();
 
-                        }
-                    });
-                    try {
-                        mediaPlayer.prepareAsync();
-                    }catch(Exception e){
-
+                        MusicStore.activeNotes = new ArrayList<Note>();
                     }
-                    SystemClock.sleep(7000);
-
-                }
-                MusicStore.activeNotes = new ArrayList<Note>();
+                }.start();
             }
         });
 
@@ -171,8 +181,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_clefs) {
             Intent sendToClefs = new Intent(this, ClefChanger.class);
             startActivity(sendToClefs);
-        } else if (id == R.id.nav_manage) {
-
+        } else if (id == R.id.nav_view_composition) {
+            Intent sendToComp = new Intent(this, Composition.class);
+            startActivity(sendToComp);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {

@@ -24,8 +24,8 @@ public class EditorView extends View {
     Canvas can;
     Context conx;
     private static final String TAG = "EditorView";
-    private final float NOTE_WIDTH = 150;
-    private final float NOTE_HEIGHT = 100;
+    public final float NOTE_WIDTH = 150;
+    public final float NOTE_HEIGHT = 100;
     Paint paint = new Paint();
     private Bitmap mBitmap;
     private Canvas mCanvas;

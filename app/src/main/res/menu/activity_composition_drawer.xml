@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_switch"
+            app:actionLayout="@layout/action_view_switch"
+            android:title="Piano Mode" />
+
+        <item
+            android:id="@+id/nav_keys"
+            android:icon="@drawable/pound"
+            android:title="Keys" />
+        <item
+            android:id="@+id/nav_clefs"
+            android:icon="@drawable/small_bass"
+            android:title="Clefs" />
+        <item
+            android:id="@+id/nav_manage"
+            android:icon="@drawable/ic_audiotrack_24dp"
+            android:title="View Composition" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
+
+</menu>

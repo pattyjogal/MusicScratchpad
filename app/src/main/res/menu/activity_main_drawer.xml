@@ -5,7 +5,7 @@
     <group android:checkableBehavior="single">
         <item android:id="@+id/nav_switch"
             app:actionLayout="@layout/action_view_switch"
-            android:title="Downloaded only" />
+            android:title="Piano Mode" />
 
         <item
             android:id="@+id/nav_keys"
@@ -13,12 +13,12 @@
             android:title="Keys" />
         <item
             android:id="@+id/nav_clefs"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:icon="@drawable/small_bass"
+            android:title="Clefs" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_view_composition"
+            android:icon="@drawable/ic_audiotrack_24dp"
+            android:title="View Composition" />
     </group>
 
     <item android:title="Communicate">
