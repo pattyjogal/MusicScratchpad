@@ -20,6 +20,7 @@ public class CompositionView extends View {
     Context conx;
     public final float NOTE_WIDTH = 150;
     public final float NOTE_HEIGHT = 100;
+    private float STAFF_WIDTH = MusicStore.sheet.size() * 600 + 500;
     public CompositionView(Context con){
         super(con);
         conx = con;
@@ -48,11 +49,11 @@ public class CompositionView extends View {
     @TargetApi(21)
     public void onDraw(Canvas c){
         paint.setStrokeWidth(10);
-        c.drawLine(20, 500, 6000, 500, paint);
-        c.drawLine(20, 700, 6000, 700, paint);
-        c.drawLine(20, 900, 6000, 900, paint);
-        c.drawLine(20, 1100, 6000, 1100, paint);
-        c.drawLine(20, 1300, 6000, 1300, paint);
+        c.drawLine(20, 500, STAFF_WIDTH, 500, paint);
+        c.drawLine(20, 700, STAFF_WIDTH, 700, paint);
+        c.drawLine(20, 900, STAFF_WIDTH, 900, paint);
+        c.drawLine(20, 1100, STAFF_WIDTH, 1100, paint);
+        c.drawLine(20, 1300, STAFF_WIDTH, 1300, paint);
         float drawX = 320;
         for (ArrayList<Note> chord : MusicStore.sheet){
             for (Note note : chord){
@@ -64,7 +65,7 @@ public class CompositionView extends View {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
-        setMeasuredDimension(6000, 1500);
+        setMeasuredDimension((int) STAFF_WIDTH, 1500);
 
     }
 }
