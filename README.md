@@ -1,7 +1,7 @@
 # Mobile Scratchpad
 *Open source Android application for musicians.*
 
-<img src="http://i.imgur.com/0u9C6qs.png"  height="1000" width="497">
+<img src="http://i.imgur.com/BUgvVSZ.png"  height="1000" width="497">
 
 ### Project Goal
 The goal of Mobile Scratchpad is to create an app where musicians can quickly compose sheet music
@@ -14,4 +14,4 @@ compositions on the phone, and will hopefully grow and develop with user feedbac
 * Play your music using built-in MIDI playback
 
 ### Recent Screencaps:
-<img src="https://zippy.gfycat.com/DecisiveAnyBison.gif" height="960" width="540">
+<img src="https://zippy.gfycat.com/MessyWeeGlassfrog.gif" height="960" width="540">
