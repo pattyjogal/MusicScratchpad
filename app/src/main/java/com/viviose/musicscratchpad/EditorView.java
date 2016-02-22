@@ -35,8 +35,8 @@ public class EditorView extends View {
     private Canvas mCanvas;
     DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
     float density = metrics.density;
-    float x = metrics.widthPixels;
-    float y = metrics.heightPixels;
+    float x;
+    float y;
 
     float touchX;
     float touchY;
@@ -69,12 +69,14 @@ public class EditorView extends View {
     @Override
     @TargetApi(21)
     public void onDraw(Canvas c){
+        x = getWidth();
+        y = getHeight();
         DensityMetrics.setSpaceHeight(y / 8);
         paint.setStrokeWidth(10);
         for (int i = 2; i < 7; i++){
-            c.drawLine(20, DensityMetrics.spaceHeight * i, x - 20, DensityMetrics.spaceHeight, paint);
+            c.drawLine(20, DensityMetrics.spaceHeight * i, x - 20, DensityMetrics.spaceHeight * i, paint);
         }
-        
+        c.drawLine(0, 1, 100, 1, paint);
 
         if (ClefSetting.clef == Clef.ALTO) {
             Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.alto_clef);
