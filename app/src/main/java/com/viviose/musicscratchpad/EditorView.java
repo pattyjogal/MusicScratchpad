@@ -1,6 +1,7 @@
 package com.viviose.musicscratchpad;
 
 import android.annotation.TargetApi;
+import android.app.ActionBar;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -38,6 +39,7 @@ public class EditorView extends View {
     float x;
     float y;
 
+
     float touchX;
     float touchY;
     boolean drawNote;
@@ -69,14 +71,15 @@ public class EditorView extends View {
     @Override
     @TargetApi(21)
     public void onDraw(Canvas c){
+
         x = getWidth();
         y = getHeight();
         DensityMetrics.setSpaceHeight(y / 8);
         paint.setStrokeWidth(10);
         for (int i = 2; i < 7; i++){
-            c.drawLine(20, DensityMetrics.spaceHeight * i, x - 20, DensityMetrics.spaceHeight * i, paint);
+            c.drawLine(20, DensityMetrics.y(DensityMetrics.spaceHeight) * i, x - 20, DensityMetrics.y(DensityMetrics.spaceHeight) * i, paint);
         }
-        c.drawLine(0, 1, 100, 1, paint);
+        c.drawLine(0, DensityMetrics.y(1), 100, 1, paint);
 
         if (ClefSetting.clef == Clef.ALTO) {
             Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.alto_clef);

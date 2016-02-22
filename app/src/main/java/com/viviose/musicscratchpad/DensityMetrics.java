@@ -6,6 +6,7 @@ package com.viviose.musicscratchpad;
 public class DensityMetrics {
     public static float density = 3;
     public static float spaceHeight;
+    public static float toolbarHeight;
 
     public void setDensity(float d){
         density = d;
@@ -13,5 +14,13 @@ public class DensityMetrics {
 
     public static void setSpaceHeight(float spaceHeight) {
         DensityMetrics.spaceHeight = spaceHeight;
+    }
+
+    public static void setToolbarHeight(float toolbarHeight) {
+        DensityMetrics.toolbarHeight = toolbarHeight;
+    }
+
+    public static float y(float yposn){
+        return yposn + toolbarHeight;
     }
 }
