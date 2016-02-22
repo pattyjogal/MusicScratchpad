@@ -13,6 +13,7 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Size;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -20,7 +21,10 @@ import android.view.View;
  * Created by Patrick on 2/2/2016.
  */
 public class EditorView extends View {
-
+    public float pxdp(float dp){
+        float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
+        return px;
+    }
     Canvas can;
     Context conx;
     private static final String TAG = "EditorView";
@@ -30,8 +34,10 @@ public class EditorView extends View {
     private Bitmap mBitmap;
     private Canvas mCanvas;
     DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
+    float density = metrics.density;
     float x = metrics.widthPixels;
     float y = metrics.heightPixels;
+
     float touchX;
     float touchY;
     boolean drawNote;
@@ -63,12 +69,12 @@ public class EditorView extends View {
     @Override
     @TargetApi(21)
     public void onDraw(Canvas c){
+        DensityMetrics.setSpaceHeight(y / 8);
         paint.setStrokeWidth(10);
-        c.drawLine(20, 500, x - 20, 500, paint);
-        c.drawLine(20, 700, x - 20, 700, paint);
-        c.drawLine(20, 900, x - 20, 900, paint);
-        c.drawLine(20, 1100, x - 20, 1100, paint);
-        c.drawLine(20, 1300, x - 20, 1300, paint);
+        for (int i = 2; i < 7; i++){
+            c.drawLine(20, DensityMetrics.spaceHeight * i, x - 20, DensityMetrics.spaceHeight, paint);
+        }
+        
 
         if (ClefSetting.clef == Clef.ALTO) {
             Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.alto_clef);

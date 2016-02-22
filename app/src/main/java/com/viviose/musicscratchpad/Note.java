@@ -102,6 +102,27 @@ public class Note{
         return NoteName.c;
     }
 
+    private NoteName keyAccidental(NoteName note){
+        if (Key.COUNT == 0){
+            return note;
+        }
+        if (Key.SHARP){
+            NoteName[][] sharps = { {NoteName.f, NoteName.fs},
+                                    {NoteName.c, NoteName.cs},
+                                    {NoteName.g, NoteName.gs},
+                                    {NoteName.d, NoteName.ds},
+                                    {NoteName.a, NoteName.as},
+                                    {NoteName.e, NoteName.f},
+                                    {NoteName.b, NoteName.c}};
+            for (int i = 0; i < sharps.length; i++){
+                if (note == sharps[i][0]){
+                    return sharps[i][1];
+                }
+            }
+        }
+        return note;
+    }
+
 
 
 
