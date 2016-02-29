@@ -10,6 +10,7 @@ public class DensityMetrics {
     public static float spaceHeight;
     public static float toolbarHeight;
     public static Toolbar toolbar;
+    public static float navBarHeight;
 
     public void setDensity(float d){
         density = d;
@@ -21,6 +22,10 @@ public class DensityMetrics {
 
     public static float getToolbarHeight() {
         return toolbar.getHeight();
+    }
+
+    public static void setNavBarHeight(float navBarHeight) {
+        DensityMetrics.navBarHeight = navBarHeight;
     }
 
     public static float y(float yposn){

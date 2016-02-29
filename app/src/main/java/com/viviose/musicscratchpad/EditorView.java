@@ -77,19 +77,20 @@ public class EditorView extends View {
         int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
         if (resourceId > 0) {
             navigationBarHeight = getResources().getDimensionPixelSize(resourceId);
+            DensityMetrics.setNavBarHeight(navigationBarHeight);
         }
         x = getWidth();
         y = getHeight();
         DensityMetrics.setSpaceHeight((y - DensityMetrics.getToolbarHeight() - navigationBarHeight) / 8);
         paint.setStrokeWidth(10);
-        for (int i = 3; i < 8; i++){
+        for (int i = 1; i < 8; i++){
             c.drawLine(20, DensityMetrics.spaceHeight * i + DensityMetrics.getToolbarHeight() - navigationBarHeight, x - 20, DensityMetrics.spaceHeight * i + DensityMetrics.getToolbarHeight() - navigationBarHeight, paint);
         }
         c.drawLine(0, DensityMetrics.y(1), 100, 1, paint);
 
         if (ClefSetting.clef == Clef.ALTO) {
             Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.alto_clef);
-            //Bitmap scaledBitmap = scaleDown(b, 900, true);
+            //Bitmap scaledBitmap = scaleDown(b, 900, true);DensityMetrics.spaceHeight * i + DensityMDensityMetrics.spaceHeight * i + DensityMetrics.getToolbarHeight()etrics.getToolbarHeight()
 
             c.drawBitmap(Bitmap.createScaledBitmap(b, 500, 910, true), 1, 445, paint);
         } else if (ClefSetting.clef == Clef.TREBLE){
@@ -174,7 +175,7 @@ public class EditorView extends View {
         if (y >=1350){
             canvas.drawLine(x - 200, DensityMetrics.spaceHeight * 8 + DensityMetrics.getToolbarHeight() - navigationBarHeight, x + 200, DensityMetrics.spaceHeight * 8 + DensityMetrics.getToolbarHeight() - navigationBarHeight, paint);
         }
-        canvas.drawOval(note.x - NOTE_WIDTH, note.y - NOTE_HEIGHT, note.x + NOTE_WIDTH, note.y + NOTE_HEIGHT, paint);
+        canvas.drawOval(note.x - NOTE_WIDTH, note.y - DensityMetrics.spaceHeight / 2 + DensityMetrics.getToolbarHeight() - navigationBarHeight, note.x + NOTE_WIDTH, note.y + DensityMetrics.spaceHeight / 2 + DensityMetrics.getToolbarHeight() - navigationBarHeight, paint);
 
 
     }

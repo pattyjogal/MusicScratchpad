@@ -10,6 +10,9 @@ import java.util.ArrayList;
 public class Note{
     public float x;
     public float y;
+    float interval = DensityMetrics.spaceHeight;
+    float subInt = DensityMetrics.spaceHeight / 2;
+    float subSubInt = subInt / 2;
     NoteName name;
     int octave = Octave.octave;
     public enum NoteName{
@@ -64,8 +67,8 @@ public class Note{
                 Octave.octave = 4;
         }
         for (int i = 13; i > -1; i--){
-            float yL = 1550 - 100 * i;
-            float yU = 1650 - 100 * i;
+            float yL = (interval * 8 - subInt) - subInt * i + DensityMetrics.getToolbarHeight();
+            float yU = (interval * 8) - subInt * i + DensityMetrics.getToolbarHeight();
             int o = octave;
             if (clef == Clef.ALTO){
                 if (i < 7){
@@ -93,7 +96,7 @@ public class Note{
     private NoteName getNoteFromPosn(float y, Clef clef){
         ArrayList<NotePosn> noteList = getNotePosn(y, clef);
         for (int i = 0; i < noteList.size(); i++) {
-            if (y > noteList.get(i).yLower && y <= noteList.get(i).yUpper){
+            if (y - DensityMetrics.getToolbarHeight() > noteList.get(i).yLower && y - DensityMetrics.getToolbarHeight() <= noteList.get(i).yUpper){
                 octave = noteList.get(i).octave;
                 return noteList.get(i).noteName;
             }
@@ -136,39 +139,15 @@ public class Note{
 
 //Change this to a rounding statement
     private float snapNoteY(float y) {
-        float snapY;
-        if (450 <= y && 550 >= y) {
-            snapY = 500;
-        }else if (550 < y && 650 >= y){
-            snapY = 600;
-        }else if (650 < y && 750 >= y){
-            snapY = 700;
-        }else if (750 < y && 850 >= y){
-            snapY = 800;
-        }else if (850 < y && 950 >= y){
-            snapY = 900;
-        }else if (950 < y && 1050 >= y){
-            snapY = 1000;
-        }else if (1050 < y && 1150 >= y){
-            snapY = 1100;
-        }else if (1150 < y && 1250 >= y){
-            snapY = 1200;
-        }else if (1250 < y && 1350 >= y) {
-            snapY = 1300;
-        }else if (350 <= y && 450 >= y){
-            snapY = 400;
-        }else if (250 <= y && 350 >= y){
-            snapY = 300;
-        }else if (1350 <= y && 1450 >= y){
-            snapY = 1400;
-        }else if (1450 <= y && 1550 >= y){
-            snapY = 1500;
-        }else if (1550 <= y && 1650 >= y){
-            snapY = 1600;
-        }else{
-            snapY = -1000;
-        }
 
+        float snapY = 0;
+        for (int i = 1; i < 9; i++) {
+            if (interval * i - subSubInt < y && interval * i + subSubInt >= y) {
+                snapY = interval * i;
+            }else if(interval * i + subInt - subSubInt < y && interval * i + subInt + subSubInt >= y){
+                snapY = interval * i + subInt;
+            }
+        }
         return snapY;
     }
 
