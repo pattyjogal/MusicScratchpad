@@ -1,5 +1,7 @@
 package com.viviose.musicscratchpad;
 
+import android.support.v7.widget.Toolbar;
+
 /**
  * Created by Patrick on 2/22/2016.
  */
@@ -7,6 +9,7 @@ public class DensityMetrics {
     public static float density = 3;
     public static float spaceHeight;
     public static float toolbarHeight;
+    public static Toolbar toolbar;
 
     public void setDensity(float d){
         density = d;
@@ -16,11 +19,11 @@ public class DensityMetrics {
         DensityMetrics.spaceHeight = spaceHeight;
     }
 
-    public static void setToolbarHeight(float toolbarHeight) {
-        DensityMetrics.toolbarHeight = toolbarHeight;
+    public static float getToolbarHeight() {
+        return toolbar.getHeight();
     }
 
     public static float y(float yposn){
-        return yposn + toolbarHeight;
+        return yposn + toolbar.getHeight();
     }
 }

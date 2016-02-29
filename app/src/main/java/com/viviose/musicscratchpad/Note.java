@@ -137,7 +137,6 @@ public class Note{
 //Change this to a rounding statement
     private float snapNoteY(float y) {
         float snapY;
-
         if (450 <= y && 550 >= y) {
             snapY = 500;
         }else if (550 < y && 650 >= y){

@@ -26,6 +26,7 @@ public class EditorView extends View {
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
         return px;
     }
+    int navigationBarHeight = 0;
     Canvas can;
     Context conx;
     private static final String TAG = "EditorView";
@@ -71,13 +72,18 @@ public class EditorView extends View {
     @Override
     @TargetApi(21)
     public void onDraw(Canvas c){
+        // navigation bar height
 
+        int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            navigationBarHeight = getResources().getDimensionPixelSize(resourceId);
+        }
         x = getWidth();
         y = getHeight();
-        DensityMetrics.setSpaceHeight(y / 8);
+        DensityMetrics.setSpaceHeight((y - DensityMetrics.getToolbarHeight() - navigationBarHeight) / 8);
         paint.setStrokeWidth(10);
-        for (int i = 2; i < 7; i++){
-            c.drawLine(20, DensityMetrics.y(DensityMetrics.spaceHeight) * i, x - 20, DensityMetrics.y(DensityMetrics.spaceHeight) * i, paint);
+        for (int i = 3; i < 8; i++){
+            c.drawLine(20, DensityMetrics.spaceHeight * i + DensityMetrics.getToolbarHeight() - navigationBarHeight, x - 20, DensityMetrics.spaceHeight * i + DensityMetrics.getToolbarHeight() - navigationBarHeight, paint);
         }
         c.drawLine(0, DensityMetrics.y(1), 100, 1, paint);
 
@@ -129,7 +135,7 @@ public class EditorView extends View {
 
                 break;
             case MotionEvent.ACTION_UP:
-                ;
+
                 break;
         }
 
@@ -155,7 +161,6 @@ public class EditorView extends View {
         mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             public void onCompletion(MediaPlayer mp) {
                 mp.release();
-
             }
         });
         try {
@@ -163,15 +168,12 @@ public class EditorView extends View {
         }catch(Exception e){
 
         }
-
         if (y <= 450){
-            canvas.drawLine(x - 200, 300, x + 200, 300, paint);
+            canvas.drawLine(x - 200, DensityMetrics.spaceHeight * 2 + DensityMetrics.getToolbarHeight() - navigationBarHeight, x + 200, DensityMetrics.spaceHeight * 2 + DensityMetrics.getToolbarHeight() - navigationBarHeight, paint);
         }
         if (y >=1350){
-            canvas.drawLine(x - 200, 1500, x + 200, 1500, paint);
+            canvas.drawLine(x - 200, DensityMetrics.spaceHeight * 8 + DensityMetrics.getToolbarHeight() - navigationBarHeight, x + 200, DensityMetrics.spaceHeight * 8 + DensityMetrics.getToolbarHeight() - navigationBarHeight, paint);
         }
-
-
         canvas.drawOval(note.x - NOTE_WIDTH, note.y - NOTE_HEIGHT, note.x + NOTE_WIDTH, note.y + NOTE_HEIGHT, paint);
 
 
