@@ -81,12 +81,12 @@ public class EditorView extends View {
         }
         x = getWidth();
         y = getHeight();
-        DensityMetrics.setSpaceHeight((y - DensityMetrics.getToolbarHeight() - navigationBarHeight) / 8);
+        DensityMetrics.setSpaceHeight((y - DensityMetrics.getToolbarHeight()) / 8);
         paint.setStrokeWidth(10);
-        for (int i = 1; i < 8; i++){
-            c.drawLine(20, DensityMetrics.spaceHeight * i + DensityMetrics.getToolbarHeight() - navigationBarHeight, x - 20, DensityMetrics.spaceHeight * i + DensityMetrics.getToolbarHeight() - navigationBarHeight, paint);
+        for (int i = 2; i < 7; i++){
+            c.drawLine(20, DensityMetrics.spaceHeight * i + DensityMetrics.getToolbarHeight(), x - 20, DensityMetrics.spaceHeight * i + DensityMetrics.getToolbarHeight(), paint);
         }
-        c.drawLine(0, DensityMetrics.y(1), 100, 1, paint);
+
 
         if (ClefSetting.clef == Clef.ALTO) {
             Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.alto_clef);
@@ -123,7 +123,7 @@ public class EditorView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event){
         float x = event.getX();
-        float y = event.getY();
+        float y = event.getY() - DensityMetrics.getToolbarHeight();
 
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
@@ -175,7 +175,8 @@ public class EditorView extends View {
         if (y >=1350){
             canvas.drawLine(x - 200, DensityMetrics.spaceHeight * 8 + DensityMetrics.getToolbarHeight() - navigationBarHeight, x + 200, DensityMetrics.spaceHeight * 8 + DensityMetrics.getToolbarHeight() - navigationBarHeight, paint);
         }
-        canvas.drawOval(note.x - NOTE_WIDTH, note.y - DensityMetrics.spaceHeight / 2 + DensityMetrics.getToolbarHeight() - navigationBarHeight, note.x + NOTE_WIDTH, note.y + DensityMetrics.spaceHeight / 2 + DensityMetrics.getToolbarHeight() - navigationBarHeight, paint);
+        canvas.drawOval(note.x - NOTE_WIDTH, note.y - DensityMetrics.spaceHeight / 2, note.x + NOTE_WIDTH, note.y + DensityMetrics.spaceHeight / 2, paint);
+
 
 
     }

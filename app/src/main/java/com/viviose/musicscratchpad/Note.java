@@ -11,7 +11,7 @@ public class Note{
     public float x;
     public float y;
     float interval = DensityMetrics.spaceHeight;
-    float subInt = DensityMetrics.spaceHeight / 2;
+    float subInt = interval / 2;
     float subSubInt = subInt / 2;
     NoteName name;
     int octave = Octave.octave;
@@ -96,7 +96,7 @@ public class Note{
     private NoteName getNoteFromPosn(float y, Clef clef){
         ArrayList<NotePosn> noteList = getNotePosn(y, clef);
         for (int i = 0; i < noteList.size(); i++) {
-            if (y - DensityMetrics.getToolbarHeight() > noteList.get(i).yLower && y - DensityMetrics.getToolbarHeight() <= noteList.get(i).yUpper){
+            if (y > noteList.get(i).yLower && y <= noteList.get(i).yUpper){
                 octave = noteList.get(i).octave;
                 return noteList.get(i).noteName;
             }
@@ -141,11 +141,13 @@ public class Note{
     private float snapNoteY(float y) {
 
         float snapY = 0;
-        for (int i = 1; i < 9; i++) {
+        for (int i = 0; i < 13; i++) {
             if (interval * i - subSubInt < y && interval * i + subSubInt >= y) {
-                snapY = interval * i;
-            }else if(interval * i + subInt - subSubInt < y && interval * i + subInt + subSubInt >= y){
-                snapY = interval * i + subInt;
+                snapY = interval * i + DensityMetrics.getToolbarHeight();
+                break;
+            }else if(interval * i + subInt - subSubInt< y&& interval * i + subInt + subSubInt  >= y){
+                snapY = interval * i + subInt + DensityMetrics.getToolbarHeight();
+                break;
             }
         }
         return snapY;
