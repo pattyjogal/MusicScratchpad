@@ -14,6 +14,7 @@ public class Note{
     float subInt = interval / 2;
     float subSubInt = subInt / 2;
     NoteName name;
+    double rhythm;
     int octave = Octave.octave;
     public enum NoteName{
         c,
@@ -29,7 +30,7 @@ public class Note{
         as,
         b
     }
-    private NoteName[] altoStandardNotes =      {NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b};
+    private NoteName[] altoStandardNotes =      {NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c};
     private NoteName[] trebleStandardNotes =    {NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a};
     private NoteName[] bassStandardNotes =      {NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c};
 
@@ -66,13 +67,19 @@ public class Note{
                 res = ALTO_POSN;
                 Octave.octave = 4;
         }
-        for (int i = 13; i > -1; i--){
-            float yL = (interval * 8 - subInt) - subInt * i + DensityMetrics.getToolbarHeight();
-            float yU = (interval * 8) - subInt * i + DensityMetrics.getToolbarHeight();
+        for (int i = 14; i > -1; i--){
+            float yL = (interval * 8 - subInt) - subInt * (i + 1);
+            float yU = (interval * 8) - subInt * (i + 1);
             int o = octave;
             if (clef == Clef.ALTO){
                 if (i < 7){
-                    o = octave - 1;
+                    if (i == 0){
+                        o = octave - 2;
+                    }else {
+                        o = octave - 1;
+                    }
+                }else if (i == 14){
+                    o = octave + 1;
                 }
             }else if (clef == Clef.TREBLE){
                 if (i < 8){
@@ -117,7 +124,7 @@ public class Note{
                                     {NoteName.a, NoteName.as},
                                     {NoteName.e, NoteName.f},
                                     {NoteName.b, NoteName.c}};
-            for (int i = 0; i < sharps.length; i++){
+            for (int i = 0; i < Key.COUNT; i++){
                 if (note == sharps[i][0]){
                     return sharps[i][1];
                 }
@@ -132,7 +139,8 @@ public class Note{
     public Note(float xC, float yC){
         x = xC;
         y = snapNoteY(yC);
-        name = getNoteFromPosn(yC, ClefSetting.clef);
+        name = keyAccidental(getNoteFromPosn(snapNoteY(yC) - DensityMetrics.getToolbarHeight(), ClefSetting.clef));
+        rhythm = LastRhythm.value;
 
     }
 

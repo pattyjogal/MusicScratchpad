@@ -15,6 +15,46 @@
             android:id="@+id/editor_canvas"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
+        <LinearLayout
+            android:id="@+id/rhythm_bar"
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:layout_gravity="bottom|center">
+            <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+
+            >
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dip">
+            <Button
+                android:id="@+id/eighth_note"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="1/8"/>
+            <Button
+                android:id="@+id/quarter_note"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="1/4"/>
+            <Button
+                android:id="@+id/half_note"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="1/2"/>
+            <Button
+                android:id="@+id/whole_note"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="1"/>
+
+
+
+        </LinearLayout>
+        </HorizontalScrollView>
+        </LinearLayout>
     </FrameLayout>
     <include
         layout="@layout/app_bar_main"

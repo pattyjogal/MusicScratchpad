@@ -2,6 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/action_rhythm"
+        android:orderInCategory="99"
+        android:title="Change note value"
+        android:icon="@drawable/ic_audiotrack_24dp"
+        app:showAsAction="ifRoom"
+        />
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
         android:title="@string/action_settings"

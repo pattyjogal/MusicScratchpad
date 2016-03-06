@@ -1,27 +1,36 @@
 package com.viviose.musicscratchpad;
 
 import android.annotation.TargetApi;
-import android.app.ActionBar;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.util.Size;
 import android.util.TypedValue;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import java.util.Vector;
 
 /**
  * Created by Patrick on 2/2/2016.
  */
 public class EditorView extends View {
+
     public float pxdp(float dp){
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
         return px;
@@ -39,8 +48,8 @@ public class EditorView extends View {
     float density = metrics.density;
     float x;
     float y;
-
-
+        //final LinearLayout rhythmBar = (LinearLayout) myView.findViewById(R.id.rhythm_bar);
+    MainActivity ma = (MainActivity)getContext();
     float touchX;
     float touchY;
     boolean drawNote;
@@ -87,12 +96,11 @@ public class EditorView extends View {
             c.drawLine(20, DensityMetrics.spaceHeight * i + DensityMetrics.getToolbarHeight(), x - 20, DensityMetrics.spaceHeight * i + DensityMetrics.getToolbarHeight(), paint);
         }
 
-
+        float altoClef = DensityMetrics.getToolbarHeight() + 2 * DensityMetrics.spaceHeight;
         if (ClefSetting.clef == Clef.ALTO) {
             Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.alto_clef);
-            //Bitmap scaledBitmap = scaleDown(b, 900, true);DensityMetrics.spaceHeight * i + DensityMDensityMetrics.spaceHeight * i + DensityMetrics.getToolbarHeight()etrics.getToolbarHeight()
+            c.drawBitmap(Bitmap.createScaledBitmap(b, (int) ((4 * (int) DensityMetrics.spaceHeight) / 1.5), 4 * (int) DensityMetrics.spaceHeight, true), 20, altoClef, paint);
 
-            c.drawBitmap(Bitmap.createScaledBitmap(b, 500, 910, true), 1, 445, paint);
         } else if (ClefSetting.clef == Clef.TREBLE){
             Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.treble_clef);
             c.drawBitmap(Bitmap.createScaledBitmap(b, 420, 1200, true), 1, 380, paint);
@@ -124,7 +132,7 @@ public class EditorView extends View {
     public boolean onTouchEvent(MotionEvent event){
         float x = event.getX();
         float y = event.getY() - DensityMetrics.getToolbarHeight();
-
+        //rhythmBar.setVisibility(View.GONE);
         switch (event.getAction()){
             case MotionEvent.ACTION_DOWN:
                 touchX = x;
@@ -136,7 +144,6 @@ public class EditorView extends View {
 
                 break;
             case MotionEvent.ACTION_UP:
-
                 break;
         }
 
@@ -169,11 +176,11 @@ public class EditorView extends View {
         }catch(Exception e){
 
         }
-        if (y <= 450){
-            canvas.drawLine(x - 200, DensityMetrics.spaceHeight * 2 + DensityMetrics.getToolbarHeight() - navigationBarHeight, x + 200, DensityMetrics.spaceHeight * 2 + DensityMetrics.getToolbarHeight() - navigationBarHeight, paint);
+        if (y - DensityMetrics.getToolbarHeight() <= DensityMetrics.spaceHeight * 2){
+            canvas.drawLine(x - 200, DensityMetrics.spaceHeight + DensityMetrics.getToolbarHeight(), x + 200, DensityMetrics.spaceHeight+ DensityMetrics.getToolbarHeight(), paint);
         }
-        if (y >=1350){
-            canvas.drawLine(x - 200, DensityMetrics.spaceHeight * 8 + DensityMetrics.getToolbarHeight() - navigationBarHeight, x + 200, DensityMetrics.spaceHeight * 8 + DensityMetrics.getToolbarHeight() - navigationBarHeight, paint);
+        if (y - DensityMetrics.getToolbarHeight() >= DensityMetrics.spaceHeight * 6){
+            canvas.drawLine(x - 200, DensityMetrics.spaceHeight * 7 + DensityMetrics.getToolbarHeight(), x + 200, DensityMetrics.spaceHeight * 7 + DensityMetrics.getToolbarHeight(), paint);
         }
         canvas.drawOval(note.x - NOTE_WIDTH, note.y - DensityMetrics.spaceHeight / 2, note.x + NOTE_WIDTH, note.y + DensityMetrics.spaceHeight / 2, paint);
 

@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 
 public class KeyChanger extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -23,6 +24,30 @@ public class KeyChanger extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        Button C = (Button) findViewById(R.id.key_c);
+        C.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Key.COUNT = 0;
+            }
+        });
+
+        Button G = (Button) findViewById(R.id.key_g);
+        C.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Key.COUNT = 1;
+            }
+        });
+
+        Button D = (Button) findViewById(R.id.key_d);
+        C.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Key.COUNT = 2;
+            }
+        });
 
 
 

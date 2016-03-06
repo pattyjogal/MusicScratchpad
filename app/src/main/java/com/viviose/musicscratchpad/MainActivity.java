@@ -16,6 +16,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.AppCompatImageButton;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -27,18 +29,31 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 import android.os.Vibrator;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnTouchListener{
+    LinearLayout rBar = null;
+    View ev;
+    public void showBar(){
+        rBar.setVisibility(LinearLayout.VISIBLE);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        rBar = (LinearLayout) findViewById(R.id.rhythm_bar);
+
+        ev = findViewById(R.id.editor_canvas);
+
+
+
         DP.r = getResources();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -46,6 +61,15 @@ public class MainActivity extends AppCompatActivity
 
         //Setting the correct media stream
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
+
+        Button eighthButton = (Button) findViewById(R.id.eighth_note);
+        eighthButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Rythym", "Change to 1/8 note");
+                rBar.setVisibility(View.GONE);
+            }
+        });
 
         ImageButton upInc = (ImageButton) findViewById(R.id.inc_octave);
         upInc.setOnClickListener(new View.OnClickListener() {
@@ -163,6 +187,8 @@ public class MainActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }else if (id == R.id.action_rhythm){
+            rBar.setVisibility(View.VISIBLE);
         }
 
         return super.onOptionsItemSelected(item);
@@ -194,6 +220,11 @@ public class MainActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+    public boolean onTouch(View v, MotionEvent event){
+        Intent sendToComp = new Intent(this, Composition.class);
+        startActivity(sendToComp);
         return true;
     }
 }

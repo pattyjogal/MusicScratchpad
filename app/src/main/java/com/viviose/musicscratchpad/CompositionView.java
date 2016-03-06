@@ -49,11 +49,9 @@ public class CompositionView extends View {
     @TargetApi(21)
     public void onDraw(Canvas c){
         paint.setStrokeWidth(10);
-        c.drawLine(20, 500, STAFF_WIDTH, 500, paint);
-        c.drawLine(20, 700, STAFF_WIDTH, 700, paint);
-        c.drawLine(20, 900, STAFF_WIDTH, 900, paint);
-        c.drawLine(20, 1100, STAFF_WIDTH, 1100, paint);
-        c.drawLine(20, 1300, STAFF_WIDTH, 1300, paint);
+        for (int i = 2; i < 7; i++){
+            c.drawLine(20, DensityMetrics.spaceHeight * i + DensityMetrics.getToolbarHeight(),STAFF_WIDTH, DensityMetrics.spaceHeight * i + DensityMetrics.getToolbarHeight(), paint);
+        }
         float drawX = 320;
         for (ArrayList<Note> chord : MusicStore.sheet){
             for (Note note : chord){
