@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
 
         rBar = (LinearLayout) findViewById(R.id.rhythm_bar);
+        rBar.setVisibility(View.GONE);
 
         ev = findViewById(R.id.editor_canvas);
 

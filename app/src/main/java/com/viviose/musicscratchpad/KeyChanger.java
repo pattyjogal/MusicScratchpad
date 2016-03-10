@@ -1,5 +1,6 @@
 package com.viviose.musicscratchpad;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,7 +20,9 @@ public class KeyChanger extends AppCompatActivity
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+        final Intent sendBack = new Intent(this, MainActivity.class);
         setContentView(R.layout.activity_key_changer);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -30,22 +33,25 @@ public class KeyChanger extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 Key.COUNT = 0;
+                startActivity(sendBack);
             }
         });
 
         Button G = (Button) findViewById(R.id.key_g);
-        C.setOnClickListener(new View.OnClickListener() {
+        G.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Key.COUNT = 1;
+                startActivity(sendBack);
             }
         });
 
         Button D = (Button) findViewById(R.id.key_d);
-        C.setOnClickListener(new View.OnClickListener() {
+        D.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Key.COUNT = 2;
+                startActivity(sendBack);
             }
         });
 
