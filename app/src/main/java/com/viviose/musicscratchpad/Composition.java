@@ -17,6 +17,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.IOException;
@@ -98,8 +99,14 @@ public class Composition extends AppCompatActivity
         File o = new File("music.mid");
         try{
             midi.writeToFile(o);
+            Toast toast = new Toast(this);
+            toast.setText("File written");
+            toast.show();
         }catch(IOException e){
             System.err.println(e);
+            Toast toast = new Toast(this);
+            toast.setText("File not written");
+            toast.show();
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
