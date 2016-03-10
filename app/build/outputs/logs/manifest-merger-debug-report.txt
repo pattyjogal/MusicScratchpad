@@ -1,6 +1,6 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\Patrick\AndroidStudioProjects\MusicScratchpad\app\src\main\AndroidManifest.xml:2:1-50:12
+ADDED from C:\Users\Patrick\AndroidStudioProjects\MusicScratchpad\app\src\main\AndroidManifest.xml:2:1-51:12
 	package
 		ADDED from C:\Users\Patrick\AndroidStudioProjects\MusicScratchpad\app\src\main\AndroidManifest.xml:3:5-42
 		INJECTED from C:\Users\Patrick\AndroidStudioProjects\MusicScratchpad\app\src\main\AndroidManifest.xml
@@ -86,6 +86,10 @@ ADDED from C:\Users\Patrick\AndroidStudioProjects\MusicScratchpad\app\src\main\A
 		ADDED from C:\Users\Patrick\AndroidStudioProjects\MusicScratchpad\app\src\main\AndroidManifest.xml:43:13-56
 	android:name
 		ADDED from C:\Users\Patrick\AndroidStudioProjects\MusicScratchpad\app\src\main\AndroidManifest.xml:40:13-40
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from C:\Users\Patrick\AndroidStudioProjects\MusicScratchpad\app\src\main\AndroidManifest.xml:49:5-81
+	android:name
+		ADDED from C:\Users\Patrick\AndroidStudioProjects\MusicScratchpad\app\src\main\AndroidManifest.xml:49:22-78
 uses-sdk
 INJECTED from C:\Users\Patrick\AndroidStudioProjects\MusicScratchpad\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 MERGED from [com.android.support:appcompat-v7:23.1.1] C:\Users\Patrick\AndroidStudioProjects\MusicScratchpad\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.1.1\AndroidManifest.xml:20:5-43
