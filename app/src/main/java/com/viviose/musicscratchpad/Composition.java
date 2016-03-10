@@ -99,10 +99,10 @@ public class Composition extends AppCompatActivity
         File o = new File("music.mid");
         try{
             midi.writeToFile(o);
-            Toast.makeText(this, "File NOT WRITTEN!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "File WRITTEN!!", Toast.LENGTH_SHORT).show();
         }catch(IOException e){
             System.err.println(e);
-            Toast.makeText(this, "File NOT WRITTEN!!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
 
         }
 
