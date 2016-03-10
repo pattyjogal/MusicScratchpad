@@ -96,10 +96,10 @@ public class Composition extends AppCompatActivity
 
         MidiFile midi = new MidiFile(MidiFile.DEFAULT_RESOLUTION, tracks);
 
-        File o = new File(getFilesDir().getPath().toString() + "music.mid");
+        File o = new File( "/sdcard/Music/music.mid");
         try{
             midi.writeToFile(o);
-            Toast.makeText(this, "File WRITTEN!, find it here: " + getFilesDir().getPath().toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "File WRITTEN!, find it here: " + "/sdcard/Music/music.mid", Toast.LENGTH_SHORT).show();
         }catch(IOException e){
             System.err.println(e);
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
