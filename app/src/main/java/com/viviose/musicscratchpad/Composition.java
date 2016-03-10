@@ -4,6 +4,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -95,8 +96,8 @@ public class Composition extends AppCompatActivity
         tracks.add(noteTrack);
 
         MidiFile midi = new MidiFile(MidiFile.DEFAULT_RESOLUTION, tracks);
-
-        File o = new File( "/sdcard/Music/music.mid");
+        File sdCard = Environment.getExternalStorageDirectory();
+        File o = new File(sdCard, "music.mid");
         try{
             midi.writeToFile(o);
             Toast.makeText(this, "File WRITTEN!, find it here: " + "/sdcard/Music/music.mid", Toast.LENGTH_SHORT).show();
