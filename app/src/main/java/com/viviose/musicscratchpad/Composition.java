@@ -96,7 +96,7 @@ public class Composition extends AppCompatActivity
 
         MidiFile midi = new MidiFile(MidiFile.DEFAULT_RESOLUTION, tracks);
 
-        File o = new File("music.mid");
+        File o = new File(getFilesDir() + "music.mid");
         try{
             midi.writeToFile(o);
             Toast.makeText(this, "File WRITTEN!!", Toast.LENGTH_SHORT).show();
