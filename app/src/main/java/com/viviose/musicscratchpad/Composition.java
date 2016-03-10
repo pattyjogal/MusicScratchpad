@@ -99,14 +99,11 @@ public class Composition extends AppCompatActivity
         File o = new File("music.mid");
         try{
             midi.writeToFile(o);
-            Toast toast = new Toast(this);
-            toast.setText("File written");
-            toast.show();
+            Toast.makeText(this, "File NOT WRITTEN!!", Toast.LENGTH_SHORT).show();
         }catch(IOException e){
             System.err.println(e);
-            Toast toast = new Toast(this);
-            toast.setText("File not written");
-            toast.show();
+            Toast.makeText(this, "File NOT WRITTEN!!", Toast.LENGTH_SHORT).show();
+
         }
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
