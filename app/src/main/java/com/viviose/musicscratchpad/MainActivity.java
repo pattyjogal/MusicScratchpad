@@ -36,7 +36,7 @@ import android.os.Vibrator;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, View.OnTouchListener{
+        implements NavigationView.OnNavigationItemSelectedListener{
     LinearLayout rBar = null;
     View ev;
     public void showBar(){
@@ -223,9 +223,5 @@ public class MainActivity extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    public boolean onTouch(View v, MotionEvent event){
-        Intent sendToComp = new Intent(this, Composition.class);
-        startActivity(sendToComp);
-        return true;
-    }
+
 }

@@ -64,11 +64,11 @@ public class Composition extends AppCompatActivity
 
         //TODO: Make BPM Dynamic
         Tempo tempo = new Tempo();
-        tempo.setBpm(228);
+        tempo.setBpm(60);
 
         tempoTrack.insertEvent(ts);
         tempoTrack.insertEvent(tempo);
-        long iterator = 1;
+        long iterator = 0;
         long tick = 0;
 
         for (ArrayList<Note> chord : MusicStore.sheet){
@@ -109,11 +109,12 @@ public class Composition extends AppCompatActivity
 
         ArrayList<MidiTrack> tracks = new ArrayList<>();
         tracks.add(tempoTrack);
+        noteTrack.insertEvent(new ProgramChange(0, 0, 1));
         tracks.add(noteTrack);
 
         MidiFile midi = new MidiFile(MidiFile.DEFAULT_RESOLUTION, tracks);
-        File sdCard = Environment.getExternalStorageDirectory();
-        File o = new File(sdCard, "music.mid");
+        final File sdCard = Environment.getExternalStorageDirectory();
+        final File o = new File(sdCard, "music.mid");
         try{
             midi.writeToFile(o);
             Toast.makeText(this, "File WRITTEN!, find it here: " + "/sdcard/Music/music.mid", Toast.LENGTH_SHORT).show();
@@ -127,30 +128,24 @@ public class Composition extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                new Thread() {
+                MediaPlayer mp = new MediaPlayer();
+                try{
+                    mp.setDataSource(o.getPath());
+                }catch(IOException e){
+                    System.err.println("Couldn't init media player");
+                }
+                mp.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                     @Override
-                    public void run() {
-                        Looper.prepare();
-                        for (ArrayList<Note> chord : MusicStore.sheet) {
-                            MediaPlayer pl = null;
-                            for (final Note note : chord) {
-                                pl = MediaPlayer.create(getApplicationContext(), Uri.parse("android.resource://com.viviose.musicscratchpad/raw/" + note.name.toString() + Integer.toString(note.octave)));
-                                pl.start();
-                            }
-                            try {
-                                Thread.sleep(900);
-                                pl.stop();
-                                pl.release();
-                            }catch (Exception e){
-                                e.getLocalizedMessage();
-                                Log.e("Music Player", "ERROR IN THREAD");
-                            }
-
-
-                        }
-
+                    public void onPrepared(MediaPlayer mp) {
+                        mp.start();
+                        Log.i("MP", "Playing MIDI");
                     }
-                }.start();
+                });
+                try{
+                    mp.prepare();
+                }catch (Exception e){
+                    Log.e("MP", "Error with media player prepare");
+                }
             }
         });
 

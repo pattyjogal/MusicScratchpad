@@ -110,7 +110,7 @@ public class EditorView extends View {
         }
         if (drawNote){
             drawNoteHead(touchX, touchY, c);
-
+            drawNote = false;
         }
 
     }
