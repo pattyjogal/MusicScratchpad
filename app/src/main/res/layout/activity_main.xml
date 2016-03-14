@@ -29,26 +29,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dip">
-            <Button
+            <ImageButton
                 android:id="@+id/eighth_note"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="1/8"/>
-            <Button
+                android:src="@drawable/music_note_eighth"/>
+            <ImageButton
                 android:id="@+id/quarter_note"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="1/4"/>
-            <Button
+                android:src="@drawable/music_note_quarter"/>
+            <ImageButton
                 android:id="@+id/half_note"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="1/2"/>
-            <Button
+                android:src="@drawable/music_note_half"/>
+            <ImageButton
                 android:id="@+id/whole_note"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="1"/>
+                android:src="@drawable/music_note_whole"/>
 
 
 

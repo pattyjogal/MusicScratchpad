@@ -63,14 +63,45 @@ public class MainActivity extends AppCompatActivity
         //Setting the correct media stream
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
 
-        Button eighthButton = (Button) findViewById(R.id.eighth_note);
+        ImageButton eighthButton = (ImageButton) findViewById(R.id.eighth_note);
         eighthButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.i("Rythym", "Change to 1/8 note");
+                LastRhythm.value = .5;
                 rBar.setVisibility(View.GONE);
             }
         });
+
+        ImageButton quarterButton = (ImageButton) findViewById(R.id.quarter_note);
+        quarterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Rythym", "Change to 1/4 note");
+                LastRhythm.value = 1;
+                rBar.setVisibility(View.GONE);
+            }
+        });
+
+        ImageButton halfButton = (ImageButton) findViewById(R.id.half_note);
+        halfButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Rythym", "Change to 1/2 note");
+                LastRhythm.value = 2;
+                rBar.setVisibility(View.GONE);
+            }
+        });
+        ImageButton wholeButton = (ImageButton) findViewById(R.id.whole_note);
+        wholeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i("Rythym", "Change to whole note");
+                LastRhythm.value = 4;
+                rBar.setVisibility(View.GONE);
+            }
+        });
+
 
         ImageButton upInc = (ImageButton) findViewById(R.id.inc_octave);
         upInc.setOnClickListener(new View.OnClickListener() {

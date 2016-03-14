@@ -100,8 +100,9 @@ public class Composition extends AppCompatActivity
                 }else if(note.name == Note.NoteName.b){
                     noteNum = 12 * note.octave + 11;
                 }
+                tick += 480 * note.rhythm;
 
-                noteTrack.insertNote(0, noteNum, 100, 480 * iterator + chordMargin, 120);
+                noteTrack.insertNote(0, noteNum, 100, tick  + chordMargin, 120);
                 chordMargin += .00001;
             }
             iterator++;
