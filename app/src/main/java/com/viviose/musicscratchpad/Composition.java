@@ -34,6 +34,37 @@ public class Composition extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final int REQUEST_WRITE_STORAGE = 112;
+
+    private int nameToNum(Note note){
+        int noteNum = -1;
+        if(note.name == Note.NoteName.c){
+            noteNum = 12 * note.octave;
+        }else if(note.name == Note.NoteName.cs){
+            noteNum = 12 * note.octave + 1;
+        }else if(note.name == Note.NoteName.d){
+            noteNum = 12 * note.octave + 2;
+        }else if(note.name == Note.NoteName.ds){
+            noteNum = 12 * note.octave + 3;
+        }else if(note.name == Note.NoteName.e){
+            noteNum = 12 * note.octave + 4;
+        }else if(note.name == Note.NoteName.f){
+            noteNum = 12 * note.octave + 5;
+        }else if(note.name == Note.NoteName.fs){
+            noteNum = 12 * note.octave + 6;
+        }else if(note.name == Note.NoteName.g){
+            noteNum = 12 * note.octave + 7;
+        }else if(note.name == Note.NoteName.gs){
+            noteNum = 12 * note.octave + 8;
+        }else if(note.name == Note.NoteName.a){
+            noteNum = 12 * note.octave + 9;
+        }else if(note.name == Note.NoteName.as){
+            noteNum = 12 * note.octave + 10;
+        }else if(note.name == Note.NoteName.b){
+            noteNum = 12 * note.octave + 11;
+        }
+        return noteNum;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,45 +99,23 @@ public class Composition extends AppCompatActivity
 
         tempoTrack.insertEvent(ts);
         tempoTrack.insertEvent(tempo);
-        long iterator = 0;
+        double lastR = 0;
         long tick = 0;
+        long tempTick = 0;
 
         for (ArrayList<Note> chord : MusicStore.sheet){
             long chordMargin = 0;
             for (Note note : chord){
-                int noteNum = 0;
-                if(note.name == Note.NoteName.c){
-                    noteNum = 12 * note.octave;
-                }else if(note.name == Note.NoteName.cs){
-                    noteNum = 12 * note.octave + 1;
-                }else if(note.name == Note.NoteName.d){
-                    noteNum = 12 * note.octave + 2;
-                }else if(note.name == Note.NoteName.cs){
-                    noteNum = 12 * note.octave + 3;
-                }else if(note.name == Note.NoteName.e){
-                    noteNum = 12 * note.octave + 4;
-                }else if(note.name == Note.NoteName.f){
-                    noteNum = 12 * note.octave + 5;
-                }else if(note.name == Note.NoteName.fs){
-                    noteNum = 12 * note.octave + 6;
-                }else if(note.name == Note.NoteName.g){
-                    noteNum = 12 * note.octave + 7;
-                }else if(note.name == Note.NoteName.gs){
-                    noteNum = 12 * note.octave + 8;
-                }else if(note.name == Note.NoteName.a){
-                    noteNum = 12 * note.octave + 9;
-                }else if(note.name == Note.NoteName.as){
-                    noteNum = 12 * note.octave + 10;
-                }else if(note.name == Note.NoteName.b){
-                    noteNum = 12 * note.octave + 11;
-                }
-                tick += 480 * note.rhythm;
+                tempTick = (long) (tick + 480 * lastR);
 
-                noteTrack.insertNote(0, noteNum, 100, tick  + chordMargin, 120);
+                noteTrack.insertNote(0, nameToNum(note), 100, tempTick  + chordMargin,  120 *(long)  note.rhythm);
                 chordMargin += .00001;
+                lastR =  note.rhythm;
             }
-            iterator++;
+            //TODO: This won't work for polyrhythmic chords lmao
+            tick = tempTick;
         }
+
 
         ArrayList<MidiTrack> tracks = new ArrayList<>();
         tracks.add(tempoTrack);

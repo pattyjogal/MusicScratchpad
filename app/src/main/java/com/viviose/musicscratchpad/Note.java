@@ -16,6 +16,22 @@ public class Note{
     NoteName name;
     double rhythm;
     int octave = Octave.octave;
+    int accidental;
+    NoteName[][] SHARPS = { {NoteName.f, NoteName.fs},
+            {NoteName.c, NoteName.cs},
+            {NoteName.g, NoteName.gs},
+            {NoteName.d, NoteName.ds},
+            {NoteName.a, NoteName.as},
+            {NoteName.e, NoteName.f},
+            {NoteName.b, NoteName.c}};
+
+    NoteName[][] FLATS = {{NoteName.b, NoteName.as},
+            {NoteName.e, NoteName.ds},
+            {NoteName.a, NoteName.gs},
+            {NoteName.d, NoteName.cs},
+            {NoteName.g, NoteName.gs},
+            {NoteName.c, NoteName.b},
+            {NoteName.f, NoteName.e}};
     public enum NoteName{
         c,
         cs,
@@ -31,8 +47,8 @@ public class Note{
         b
     }
     private NoteName[] altoStandardNotes =      {NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c};
-    private NoteName[] trebleStandardNotes =    {NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a};
-    private NoteName[] bassStandardNotes =      {NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c};
+    private NoteName[] trebleStandardNotes =    {NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b};
+    private NoteName[] bassStandardNotes =      {NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c, NoteName.d, NoteName.e, NoteName.f, NoteName.g, NoteName.a, NoteName.b, NoteName.c, NoteName.d};
 
     public class NotePosn{
         NoteName noteName;
@@ -85,6 +101,8 @@ public class Note{
                 if (i < 8){
 
                     o = octave - 1;
+                }else if(i == 0){
+                    o = octave - 2;
                 }
             }else if (clef == Clef.BASS) {
                 if (i < 6) {
@@ -112,21 +130,35 @@ public class Note{
         return NoteName.c;
     }
 
+
+
+    private NoteName accidental(NoteName note, int accidental){
+        if (accidental == 1){
+            for (NoteName[] sharpNote: SHARPS){
+                if (note == sharpNote[0]){
+                    return sharpNote[1];
+                }
+            }
+        }
+        if (accidental == -1){
+            for (NoteName[] flatNote: FLATS){
+                if (note == flatNote[0]){
+                    return flatNote[1];
+                }
+            }
+        }
+        return note;
+    }
+
     private NoteName keyAccidental(NoteName note){
         if (Key.COUNT == 0){
             return note;
         }
         if (Key.SHARP){
-            NoteName[][] sharps = { {NoteName.f, NoteName.fs},
-                                    {NoteName.c, NoteName.cs},
-                                    {NoteName.g, NoteName.gs},
-                                    {NoteName.d, NoteName.ds},
-                                    {NoteName.a, NoteName.as},
-                                    {NoteName.e, NoteName.f},
-                                    {NoteName.b, NoteName.c}};
+
             for (int i = 0; i < Key.COUNT; i++){
-                if (note == sharps[i][0]){
-                    return sharps[i][1];
+                if (note == SHARPS[i][0]){
+                    return SHARPS[i][1];
                 }
             }
         }
@@ -136,10 +168,10 @@ public class Note{
 
 
 
-    public Note(float xC, float yC){
+    public Note(float xC, float yC, int acc){
         x = xC;
         y = snapNoteY(yC);
-        name = keyAccidental(getNoteFromPosn(snapNoteY(yC) - DensityMetrics.getToolbarHeight(), ClefSetting.clef));
+        name = accidental(keyAccidental(getNoteFromPosn(snapNoteY(yC) - DensityMetrics.getToolbarHeight(), ClefSetting.clef)), acc);
         rhythm = LastRhythm.value;
 
     }

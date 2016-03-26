@@ -12,10 +12,12 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.VectorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,12 +31,13 @@ import java.util.Vector;
 /**
  * Created by Patrick on 2/2/2016.
  */
-public class EditorView extends View {
+public class EditorView extends View{
 
-    public float pxdp(float dp){
+    public float pxdp(float dp) {
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, getResources().getDisplayMetrics());
         return px;
     }
+    String DEBUG_TAG = "MusicDebug";
     int navigationBarHeight = 0;
     Canvas can;
     Context conx;
@@ -48,8 +51,11 @@ public class EditorView extends View {
     float density = metrics.density;
     float x;
     float y;
-        //final LinearLayout rhythmBar = (LinearLayout) myView.findViewById(R.id.rhythm_bar);
     MainActivity ma = (MainActivity)getContext();
+    private GestureDetector mDetector;
+    int accidental = 0;
+    Note renderableNote;
+
     float touchX;
     float touchY;
     boolean drawNote;
@@ -82,7 +88,7 @@ public class EditorView extends View {
     @TargetApi(21)
     public void onDraw(Canvas c){
         // navigation bar height
-
+        mDetector = new GestureDetector(this.getContext(), new mListener());
         int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
         if (resourceId > 0) {
             navigationBarHeight = getResources().getDimensionPixelSize(resourceId);
@@ -109,27 +115,18 @@ public class EditorView extends View {
             c.drawBitmap(Bitmap.createScaledBitmap(b, 420, 610, true), 20, 500, paint);
         }
         if (drawNote){
-            drawNoteHead(touchX, touchY, c);
+            drawNoteHead(renderableNote, c);
             drawNote = false;
         }
 
     }
-    //Thanks to Padma Kumar
-    public static Bitmap scaleDown(Bitmap realImage, float maxImageSize,
-                                   boolean filter) {
-        float ratio = Math.min(
-                (float) maxImageSize / realImage.getWidth(),
-                (float) maxImageSize / realImage.getHeight());
-        int width = Math.round((float) ratio * realImage.getWidth());
-        int height = Math.round((float) ratio * realImage.getHeight());
-
-        Bitmap newBitmap = Bitmap.createScaledBitmap(realImage, width,
-                height, filter);
-        return newBitmap;
-    }
-
+    //TODO: Make noteheads for different note values AND stack x values
     @Override
-    public boolean onTouchEvent(MotionEvent event){
+   public boolean onTouchEvent(MotionEvent event){
+        boolean result = mDetector.onTouchEvent(event);
+        if (!result){
+            Log.d("What", "is this gesture?");
+        }
         float x = event.getX();
         float y = event.getY() - DensityMetrics.getToolbarHeight();
         //rhythmBar.setVisibility(View.GONE);
@@ -137,23 +134,26 @@ public class EditorView extends View {
             case MotionEvent.ACTION_DOWN:
                 touchX = x;
                 touchY = y;
+                renderableNote = new Note(x,y, accidental);
+                MusicStore.activeNotes.add(renderableNote);
+                break;
+            case MotionEvent.ACTION_UP:
+                if (Settings.piano){
+
+                    MainActivity main = new MainActivity();
+                    main.nextInput();
+                }
                 drawNote = true;
                 invalidate();
                 break;
-            case MotionEvent.ACTION_CANCEL:
-
-                break;
-            case MotionEvent.ACTION_UP:
-                break;
         }
 
-        return true;
+        return result;
     }
     @TargetApi(21)
-    private void drawNoteHead(float x, float y,Canvas canvas){
+    private void drawNoteHead(Note note,Canvas canvas){
         MediaPlayer mediaPlayer = new MediaPlayer();
-        Note note = new Note(x,y);
-        MusicStore.activeNotes.add(note);
+
         try {
             mediaPlayer.setDataSource(getContext(), Uri.parse("android.resource://com.viviose.musicscratchpad/raw/" + note.name.toString() + Integer.toString(note.octave)));
         } catch(Exception e){
@@ -176,17 +176,86 @@ public class EditorView extends View {
         }catch(Exception e){
 
         }
-        if (y - DensityMetrics.getToolbarHeight() <= DensityMetrics.spaceHeight * 2){
-            canvas.drawLine(x - 200, DensityMetrics.spaceHeight + DensityMetrics.getToolbarHeight(), x + 200, DensityMetrics.spaceHeight+ DensityMetrics.getToolbarHeight(), paint);
+        if (note.y - DensityMetrics.getToolbarHeight() <= DensityMetrics.spaceHeight * 2){
+            canvas.drawLine(note.x - 200, DensityMetrics.spaceHeight + DensityMetrics.getToolbarHeight(), note.x + 200, DensityMetrics.spaceHeight+ DensityMetrics.getToolbarHeight(), paint);
         }
-        if (y - DensityMetrics.getToolbarHeight() >= DensityMetrics.spaceHeight * 6){
-            canvas.drawLine(x - 200, DensityMetrics.spaceHeight * 7 + DensityMetrics.getToolbarHeight(), x + 200, DensityMetrics.spaceHeight * 7 + DensityMetrics.getToolbarHeight(), paint);
+        if (note.y - DensityMetrics.getToolbarHeight() >= DensityMetrics.spaceHeight * 6){
+            canvas.drawLine(note.x - 200, DensityMetrics.spaceHeight * 7 + DensityMetrics.getToolbarHeight(), note.x + 200, DensityMetrics.spaceHeight * 7 + DensityMetrics.getToolbarHeight(), paint);
         }
-        canvas.drawOval(note.x - NOTE_WIDTH, note.y - DensityMetrics.spaceHeight / 2, note.x + NOTE_WIDTH, note.y + DensityMetrics.spaceHeight / 2, paint);
+        //canvas.drawOval(note.x - NOTE_WIDTH, note.y - DensityMetrics.spaceHeight / 2, note.x + NOTE_WIDTH, note.y + DensityMetrics.spaceHeight / 2, paint);
+        VectorDrawable noteHead = (VectorDrawable) getResources().getDrawable(R.drawable.note_head);
+        Bitmap nh = getBitmap(noteHead);
+        canvas.drawBitmap(Bitmap.createScaledBitmap(nh, (int) DensityMetrics.spaceHeight, (int) (DensityMetrics.spaceHeight * (78 / 47)), true), note.x, note.y, paint);
+        if (accidental == 1){
+            VectorDrawable vd = (VectorDrawable) getResources().getDrawable(R.drawable.sharp);
+            Bitmap b = getBitmap(vd);
+            canvas.drawBitmap(Bitmap.createScaledBitmap(b, (int) (NOTE_HEIGHT * 3 / 2), (int) NOTE_HEIGHT * 3, true), note.x - NOTE_WIDTH * 2, note.y - NOTE_HEIGHT * 3 / 2, paint);
+        }
 
+        accidental = 0;
 
+        //Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.alto_clef);
+        //c.drawBitmap(Bitmap.createScaledBitmap(b, (int) ((4 * (int) DensityMetrics.spaceHeight) / 1.5), 4 * (int) DensityMetrics.spaceHeight, true), 20, altoClef, paint);
 
     }
+
+    class mListener extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onDown(MotionEvent event) {
+            Log.d(DEBUG_TAG,"onDown: " + event.toString());
+            return true;
+        }
+        @Override
+        public boolean onFling(MotionEvent ev1, MotionEvent ev2, float velX, float velY){
+            if (velY > 5000){
+                accidental = -1;
+            }
+            if (velY < -5000){
+                accidental = 1;
+            }
+            return true;
+        }
+
+        @Override
+        public void onLongPress(MotionEvent event) {
+            Log.d(DEBUG_TAG, "onLongPress: " + event.toString());
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX,
+                                float distanceY) {
+            return true;
+        }
+
+        @Override
+        public void onShowPress(MotionEvent event) {
+            Log.d(DEBUG_TAG, "onShowPress: " + event.toString());
+        }
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent event) {
+            Log.d(DEBUG_TAG, "onSingleTapUp: " + event.toString());
+            return true;
+        }
+
+    }
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private static Bitmap getBitmap(VectorDrawable vectorDrawable) {
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
+                vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        vectorDrawable.draw(canvas);
+        return bitmap;
+
+    }
+
+
+
+
+
+
+
 
 
 

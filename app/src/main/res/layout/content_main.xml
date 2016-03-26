@@ -29,7 +29,7 @@
                 android:src="@drawable/plus_octave"
                 android:layout_centerInParent="true"
                 android:foregroundGravity="top"
-                android:background="#FFF"
+                android:background="#FAFAFA"
 
                 />
             <View
@@ -55,7 +55,7 @@
                 android:layout_centerInParent="true"
                 android:layout_alignParentLeft="true"
                 android:foregroundGravity="top"
-                android:background="#FFF"
+                android:background="#FAFAFA"
 
                 />
             <View

@@ -3,9 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_rhythm"
-        android:orderInCategory="99"
+        android:orderInCategory="98"
         android:title="Change note value"
-        android:icon="@drawable/ic_audiotrack_24dp"
+        android:icon="@drawable/ic_audiotrack_24dp_white"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/action_undo"
+        android:orderInCategory="99"
+        android:title="Undo last"
+        android:icon="@drawable/ic_undo_24dp"
         app:showAsAction="ifRoom"
         />
     <item
