@@ -1,5 +1,6 @@
 package com.viviose.musicscratchpad;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -101,14 +102,20 @@ public class ClefChanger extends AppCompatActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_keys) {
+            Intent sendToKeys = new Intent(this, KeyChanger.class);
+            startActivity(sendToKeys);
 
         } else if (id == R.id.nav_clefs) {
-
-        } else if (id == R.id.nav_manage) {
-
+            Intent sendToClefs = new Intent(this, ClefChanger.class);
+            startActivity(sendToClefs);
+        } else if (id == R.id.nav_view_composition) {
+            Intent sendToComp = new Intent(this, Composition.class);
+            startActivity(sendToComp);
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
+
+        } else if (id == R.id.singletap) {
 
         }
 

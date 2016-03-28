@@ -254,15 +254,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_send) {
 
         } else if (id == R.id.singletap) {
-           /* //TODO: Work on making it so you don't have to click the nav entry
-            pianoSwitch = (android.support.v7.widget.SwitchCompat) findViewById(R.id.piano_switch);
-            pianoSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    Settings.piano = isChecked;
-                }
 
-            });*/
         }
 
 

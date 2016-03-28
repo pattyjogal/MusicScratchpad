@@ -134,10 +134,10 @@ public class EditorView extends View{
             case MotionEvent.ACTION_DOWN:
                 touchX = x;
                 touchY = y;
-                renderableNote = new Note(x,y, accidental);
-                MusicStore.activeNotes.add(renderableNote);
+
                 break;
             case MotionEvent.ACTION_UP:
+
                 if (Settings.piano){
 
                     MainActivity main = new MainActivity();
@@ -145,6 +145,8 @@ public class EditorView extends View{
                 }
                 drawNote = true;
                 invalidate();
+                renderableNote = new Note(touchX,touchY, accidental);
+                MusicStore.activeNotes.add(renderableNote);
                 break;
         }
 
@@ -185,7 +187,7 @@ public class EditorView extends View{
         //canvas.drawOval(note.x - NOTE_WIDTH, note.y - DensityMetrics.spaceHeight / 2, note.x + NOTE_WIDTH, note.y + DensityMetrics.spaceHeight / 2, paint);
         VectorDrawable noteHead = (VectorDrawable) getResources().getDrawable(R.drawable.note_head);
         Bitmap nh = getBitmap(noteHead);
-        canvas.drawBitmap(Bitmap.createScaledBitmap(nh, (int) DensityMetrics.spaceHeight, (int) (DensityMetrics.spaceHeight * (78 / 47)), true), note.x, note.y, paint);
+        canvas.drawBitmap(Bitmap.createScaledBitmap(nh, (int) (DensityMetrics.spaceHeight * 1.787), (int) DensityMetrics.spaceHeight, true), (int) (note.x - (DensityMetrics.spaceHeight * 1.787 / 2)) , note.y - DensityMetrics.spaceHeight / 2, paint);
         if (accidental == 1){
             VectorDrawable vd = (VectorDrawable) getResources().getDrawable(R.drawable.sharp);
             Bitmap b = getBitmap(vd);
