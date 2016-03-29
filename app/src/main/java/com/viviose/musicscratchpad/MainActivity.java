@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.VectorDrawable;
 import android.media.AudioManager;
 import android.media.Image;
 import android.media.MediaPlayer;
@@ -16,6 +17,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.AppCompatImageButton;
 import android.support.v7.widget.SwitchCompat;
@@ -66,7 +68,7 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        final Context con = this;
         rBar = (LinearLayout) findViewById(R.id.rhythm_bar);
         rBar.setVisibility(View.GONE);
 
@@ -83,7 +85,24 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
-
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                VectorDrawable quarterNoteHead = (VectorDrawable) ContextCompat.getDrawable(con, R.drawable.quarter_note_head);
+                NoteBitmap.qnh = NoteBitmap.getBitmap(quarterNoteHead);
+                //VectorDrawable halfNoteHead = (VectorDrawable) ContextCompat.getDrawable(con, R.drawable.half_note_head);
+                //NoteBitmap.hnh = NoteBitmap.getBitmap(halfNoteHead);
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //VectorDrawable quarterNoteHead = (VectorDrawable) ContextCompat.getDrawable(con, R.drawable.quarter_note_head);
+                //NoteBitmap.qnh = NoteBitmap.getBitmap(quarterNoteHead);
+                VectorDrawable halfNoteHead = (VectorDrawable) ContextCompat.getDrawable(con, R.drawable.half_note_head);
+                NoteBitmap.hnh = NoteBitmap.getBitmap(halfNoteHead);
+            }
+        }).start();
         DP.r = getResources();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -267,6 +286,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void run() {
                 MusicStore.sheet.add(MusicStore.activeNotes);
+                System.gc();
                 for (
                         Note note
                         : MusicStore.activeNotes)

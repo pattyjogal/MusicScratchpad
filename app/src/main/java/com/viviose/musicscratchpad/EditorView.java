@@ -13,6 +13,7 @@ import android.graphics.drawable.VectorDrawable;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -39,7 +40,6 @@ public class EditorView extends View{
     }
     String DEBUG_TAG = "MusicDebug";
     int navigationBarHeight = 0;
-    Canvas can;
     Context conx;
     private static final String TAG = "EditorView";
     public final float NOTE_WIDTH = 150;
@@ -59,6 +59,11 @@ public class EditorView extends View{
     float touchX;
     float touchY;
     boolean drawNote;
+    //Loading note images
+    Bitmap qnh;
+    Bitmap hnh;
+
+
     public EditorView(Context con){
         super(con);
         conx = con;
@@ -88,6 +93,7 @@ public class EditorView extends View{
     @TargetApi(21)
     public void onDraw(Canvas c){
         // navigation bar height
+
         mDetector = new GestureDetector(this.getContext(), new mListener());
         int resourceId = getResources().getIdentifier("navigation_bar_height", "dimen", "android");
         if (resourceId > 0) {
@@ -114,10 +120,13 @@ public class EditorView extends View{
             Bitmap b = BitmapFactory.decodeResource(getResources(), R.drawable.bass_clef);
             c.drawBitmap(Bitmap.createScaledBitmap(b, 420, 610, true), 20, 500, paint);
         }
+
         if (drawNote){
             drawNoteHead(renderableNote, c);
             drawNote = false;
         }
+
+
 
     }
     //TODO: Make noteheads for different note values AND stack x values
@@ -146,7 +155,17 @@ public class EditorView extends View{
                 drawNote = true;
                 invalidate();
                 renderableNote = new Note(touchX,touchY, accidental);
-                MusicStore.activeNotes.add(renderableNote);
+                boolean renderNote = true;
+                for (Note note : MusicStore.activeNotes){
+                    if (renderableNote.name == note.name && renderableNote.octave == note.octave){
+                        renderNote = false;
+                        Log.d("Note", "Dupe note skipped!");
+                    }
+                }
+                if (renderNote) {
+                    MusicStore.activeNotes.add(renderableNote);
+                }
+
                 break;
         }
 
@@ -185,12 +204,19 @@ public class EditorView extends View{
             canvas.drawLine(note.x - 200, DensityMetrics.spaceHeight * 7 + DensityMetrics.getToolbarHeight(), note.x + 200, DensityMetrics.spaceHeight * 7 + DensityMetrics.getToolbarHeight(), paint);
         }
         //canvas.drawOval(note.x - NOTE_WIDTH, note.y - DensityMetrics.spaceHeight / 2, note.x + NOTE_WIDTH, note.y + DensityMetrics.spaceHeight / 2, paint);
-        VectorDrawable noteHead = (VectorDrawable) getResources().getDrawable(R.drawable.note_head);
-        Bitmap nh = getBitmap(noteHead);
-        canvas.drawBitmap(Bitmap.createScaledBitmap(nh, (int) (DensityMetrics.spaceHeight * 1.787), (int) DensityMetrics.spaceHeight, true), (int) (note.x - (DensityMetrics.spaceHeight * 1.787 / 2)) , note.y - DensityMetrics.spaceHeight / 2, paint);
+        Bitmap headBmap;
+        if (note.rhythm == 2){
+            headBmap = NoteBitmap.hnh;
+
+        }else{
+            headBmap = NoteBitmap.qnh;
+        }
+
+
+        canvas.drawBitmap(Bitmap.createScaledBitmap(headBmap, (int) (DensityMetrics.spaceHeight * 1.697), (int) DensityMetrics.spaceHeight, true), (int) (note.x - (DensityMetrics.spaceHeight * 1.697 / 2)) , note.y - DensityMetrics.spaceHeight / 2, paint);
         if (accidental == 1){
-            VectorDrawable vd = (VectorDrawable) getResources().getDrawable(R.drawable.sharp);
-            Bitmap b = getBitmap(vd);
+            VectorDrawable vd = (VectorDrawable) ContextCompat.getDrawable(getContext(), R.drawable.sharp);
+            Bitmap b = NoteBitmap.getBitmap(vd);
             canvas.drawBitmap(Bitmap.createScaledBitmap(b, (int) (NOTE_HEIGHT * 3 / 2), (int) NOTE_HEIGHT * 3, true), note.x - NOTE_WIDTH * 2, note.y - NOTE_HEIGHT * 3 / 2, paint);
         }
 
@@ -241,16 +267,7 @@ public class EditorView extends View{
         }
 
     }
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    private static Bitmap getBitmap(VectorDrawable vectorDrawable) {
-        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
-                vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        vectorDrawable.draw(canvas);
-        return bitmap;
 
-    }
 
 
 

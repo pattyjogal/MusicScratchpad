@@ -2,9 +2,11 @@ package com.viviose.musicscratchpad;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.drawable.VectorDrawable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -55,7 +57,18 @@ public class CompositionView extends View {
         float drawX = 320;
         for (ArrayList<Note> chord : MusicStore.sheet){
             for (Note note : chord){
-                c.drawOval(drawX - NOTE_WIDTH, note.y - NOTE_HEIGHT, drawX + NOTE_WIDTH, note.y + NOTE_HEIGHT, paint);
+                int noteHeadID = 0;
+                if (note.rhythm == 2){
+                    noteHeadID = R.drawable.half_note_head;
+
+                }else{
+                    noteHeadID = R.drawable.quarter_note_head;
+                }
+
+                VectorDrawable noteHead = (VectorDrawable) getResources().getDrawable(noteHeadID);
+                Bitmap nh = NoteBitmap.getBitmap(noteHead);
+                c.drawBitmap(Bitmap.createScaledBitmap(nh, (int) (DensityMetrics.spaceHeight * 1.697), (int) DensityMetrics.spaceHeight, true), (int) drawX , note.y - DensityMetrics.spaceHeight / 2, paint);
+
             }
             drawX += 600;
         }
@@ -66,4 +79,5 @@ public class CompositionView extends View {
         setMeasuredDimension((int) STAFF_WIDTH, 1500);
 
     }
+
 }

@@ -128,13 +128,14 @@ public class Composition extends AppCompatActivity
         final File o = new File(sdCard, "music.mid");
         try{
             midi.writeToFile(o);
+
             Toast.makeText(this, "File WRITTEN!, find it here: " + "/sdcard/Music/music.mid", Toast.LENGTH_SHORT).show();
         }catch(IOException e){
             System.err.println(e);
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
 
         }
-
+        System.gc();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,6 +177,8 @@ public class Composition extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            Intent sendBackToMain = new Intent(this, MainActivity.class);
+            startActivity(sendBackToMain);
             super.onBackPressed();
         }
     }
@@ -249,4 +252,5 @@ public class Composition extends AppCompatActivity
         }
 
     }
+
 }

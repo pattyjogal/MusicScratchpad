@@ -75,6 +75,8 @@ public class KeyChanger extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            Intent sendBackToMain = new Intent(this, MainActivity.class);
+            startActivity(sendBackToMain);
             super.onBackPressed();
         }
     }
