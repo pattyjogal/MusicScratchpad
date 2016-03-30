@@ -52,13 +52,13 @@ public class CompositionView extends View {
     public void onDraw(Canvas c){
         paint.setStrokeWidth(10);
         for (int i = 2; i < 7; i++){
-            c.drawLine(20, DensityMetrics.spaceHeight * i + DensityMetrics.getToolbarHeight(),STAFF_WIDTH, DensityMetrics.spaceHeight * i + DensityMetrics.getToolbarHeight(), paint);
+            c.drawLine(20, DensityMetrics.getSpaceHeight() * i + DensityMetrics.Companion.getToolbarHeight(),STAFF_WIDTH, DensityMetrics.getSpaceHeight() * i + DensityMetrics.Companion.getToolbarHeight(), paint);
         }
         float drawX = 320;
         for (ArrayList<Note> chord : MusicStore.sheet){
             for (Note note : chord){
                 int noteHeadID = 0;
-                if (note.rhythm == 2){
+                if (note.getRhythm() == 2){
                     noteHeadID = R.drawable.half_note_head;
 
                 }else{
@@ -67,7 +67,7 @@ public class CompositionView extends View {
 
                 VectorDrawable noteHead = (VectorDrawable) getResources().getDrawable(noteHeadID);
                 Bitmap nh = NoteBitmap.getBitmap(noteHead);
-                c.drawBitmap(Bitmap.createScaledBitmap(nh, (int) (DensityMetrics.spaceHeight * 1.697), (int) DensityMetrics.spaceHeight, true), (int) drawX , note.y - DensityMetrics.spaceHeight / 2, paint);
+                c.drawBitmap(Bitmap.createScaledBitmap(nh, (int) (DensityMetrics.getSpaceHeight() * 1.697), (int) DensityMetrics.getSpaceHeight(), true), (int) drawX , note.getY() - DensityMetrics.getSpaceHeight() / 2, paint);
 
             }
             drawX += 600;

@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity
         DP.r = getResources();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        DensityMetrics.toolbar = toolbar;
+        DensityMetrics.setToolbar(toolbar);
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
 
         if (settings.getBoolean("my_first_time", true)) {
@@ -294,7 +294,7 @@ public class MainActivity extends AppCompatActivity
                 {
                     MediaPlayer mediaPlayer = new MediaPlayer();
                     try {
-                        mediaPlayer.setDataSource(getApplicationContext(), Uri.parse("android.resource://com.viviose.musicscratchpad/raw/" + note.name.toString() + Integer.toString(note.octave)));
+                        mediaPlayer.setDataSource(getApplicationContext(), Uri.parse("android.resource://com.viviose.musicscratchpad/raw/" + note.getName().toString() + Integer.toString(note.getOctave())));
                     } catch (Exception e) {
 
                     }
