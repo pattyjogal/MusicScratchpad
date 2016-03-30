@@ -113,7 +113,7 @@ class Note(var x: Float, yC: Float, acc: Int) {
     private fun accidental(note: NoteName, accidental: Int): NoteName {
         if (accidental == 1) {
             for (sharpNote in SHARPS) {
-                if (note == sharpNote[0]) {
+                if (note == sharpNote[0] && note != NoteName.b && note != NoteName.e) {
                     return sharpNote[1]
                 }
             }

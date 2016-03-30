@@ -203,7 +203,7 @@ class EditorView : View {
 
 
         canvas.drawBitmap(Bitmap.createScaledBitmap(headBmap, (DensityMetrics.spaceHeight * 1.697).toInt(), DensityMetrics.spaceHeight.toInt(), true), (note.x - DensityMetrics.spaceHeight * 1.697 / 2).toInt().toFloat(), note.y - DensityMetrics.spaceHeight / 2, paint)
-        if (accidental == 1) {
+        if (accidental == 1 && note.name != Note.NoteName.b && note.name != Note.NoteName.e) {
             val vd = ContextCompat.getDrawable(context, R.drawable.sharp) as VectorDrawable
             val b = NoteBitmap.getBitmap(vd)
             canvas.drawBitmap(Bitmap.createScaledBitmap(b, (NOTE_HEIGHT * 3 / 2).toInt(), NOTE_HEIGHT.toInt() * 3, true), note.x - NOTE_WIDTH * 2, note.y - NOTE_HEIGHT * 3 / 2, paint)
