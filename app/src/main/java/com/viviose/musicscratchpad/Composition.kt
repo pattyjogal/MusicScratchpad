@@ -105,7 +105,8 @@ class Composition : AppCompatActivity(), NavigationView.OnNavigationItemSelected
                 tempTick = (tick + 480 * lastR).toLong()
 
                 noteTrack.insertNote(0, nameToNum(note), 100, tempTick + chordMargin, 120 * note.rhythm.toLong())
-                chordMargin += .00001 as Long
+                print("Kill me")
+                //chordMargin += .00001.toLong()
                 lastR = note.rhythm
             }
             //TODO: This won't work for polyrhythmic chords lmao

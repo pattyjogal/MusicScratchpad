@@ -17,8 +17,7 @@ class Note(var x: Float, yC: Float, acc: Int) {
     var octave = Octave.octave
     internal var accidental: Int = 0
     internal var SHARPS = arrayOf(arrayOf(NoteName.f, NoteName.fs), arrayOf(NoteName.c, NoteName.cs), arrayOf(NoteName.g, NoteName.gs), arrayOf(NoteName.d, NoteName.ds), arrayOf(NoteName.a, NoteName.`as`), arrayOf(NoteName.e, NoteName.f), arrayOf(NoteName.b, NoteName.c))
-
-    internal var FLATS = arrayOf(arrayOf(NoteName.b, NoteName.`as`), arrayOf(NoteName.e, NoteName.ds), arrayOf(NoteName.a, NoteName.gs), arrayOf(NoteName.d, NoteName.cs), arrayOf(NoteName.g, NoteName.gs), arrayOf(NoteName.c, NoteName.b), arrayOf(NoteName.f, NoteName.e))
+    internal var FLATS = arrayOf(arrayOf(NoteName.b, NoteName.`as`), arrayOf(NoteName.e, NoteName.ds), arrayOf(NoteName.a, NoteName.gs), arrayOf(NoteName.d, NoteName.cs), arrayOf(NoteName.g, NoteName.fs), arrayOf(NoteName.c, NoteName.b), arrayOf(NoteName.f, NoteName.e))
 
     enum class NoteName {
         c,
@@ -137,6 +136,12 @@ class Note(var x: Float, yC: Float, acc: Int) {
             for (i in 0..Key.COUNT - 1) {
                 if (note == SHARPS[i][0]) {
                     return SHARPS[i][1]
+                }
+            }
+        } else {
+            for (i in 0..Key.COUNT - 1){
+                if (note == FLATS[i][0]){
+                    return FLATS[i][1]
                 }
             }
         }

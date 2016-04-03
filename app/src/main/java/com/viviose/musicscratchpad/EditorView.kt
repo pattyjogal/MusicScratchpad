@@ -207,6 +207,10 @@ class EditorView : View {
             val vd = ContextCompat.getDrawable(context, R.drawable.sharp) as VectorDrawable
             val b = NoteBitmap.getBitmap(vd)
             canvas.drawBitmap(Bitmap.createScaledBitmap(b, (NOTE_HEIGHT * 3 / 2).toInt(), NOTE_HEIGHT.toInt() * 3, true), note.x - NOTE_WIDTH * 2, note.y - NOTE_HEIGHT * 3 / 2, paint)
+        }else if (accidental == -1 && note.name != Note.NoteName.f && note.name != Note.NoteName.c){
+            val vd = ContextCompat.getDrawable(context, R.drawable.flat) as VectorDrawable
+            val b = NoteBitmap.getBitmap(vd)
+            canvas.drawBitmap(Bitmap.createScaledBitmap(b, (NOTE_HEIGHT * 1.35).toInt(), NOTE_HEIGHT.toInt() * 3, true), note.x - NOTE_WIDTH * 2, note.y - NOTE_HEIGHT * 3 / 2, paint)
         }
 
         accidental = 0

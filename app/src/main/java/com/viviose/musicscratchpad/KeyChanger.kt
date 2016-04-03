@@ -29,18 +29,84 @@ class KeyChanger : AppCompatActivity(), NavigationView.OnNavigationItemSelectedL
         val C = findViewById(R.id.key_c) as Button
         C.setOnClickListener {
             Key.COUNT = 0
+            Key.SHARP = true
             startActivity(sendBack)
         }
 
+        //FLATS
+        val F = findViewById(R.id.key_f) as Button
+        F.setOnClickListener {
+            Key.COUNT = 1
+            Key.SHARP = false
+            startActivity(sendBack)
+        }
+
+        val Bf = findViewById(R.id.key_bf) as Button
+        Bf.setOnClickListener {
+            Key.COUNT = 2
+            Key.SHARP = false
+            startActivity(sendBack)
+        }
+        val Ef = findViewById(R.id.key_ef) as Button
+        Ef.setOnClickListener {
+            Key.COUNT = 3
+            Key.SHARP = false
+            startActivity(sendBack)
+        }
+        val Af = findViewById(R.id.key_af) as Button
+        Af.setOnClickListener {
+            Key.COUNT = 4
+            Key.SHARP = false
+            startActivity(sendBack)
+        }
+        val Df = findViewById(R.id.key_df) as Button
+        Df.setOnClickListener {
+            Key.COUNT = 5
+            Key.SHARP = false
+            startActivity(sendBack)
+        }
+        val Gf = findViewById(R.id.key_gf) as Button
+        Gf.setOnClickListener {
+            Key.COUNT = 6
+            Key.SHARP = false
+            startActivity(sendBack)
+        }
+        //SHARPS
         val G = findViewById(R.id.key_g) as Button
         G.setOnClickListener {
             Key.COUNT = 1
+            Key.SHARP = true
             startActivity(sendBack)
         }
 
         val D = findViewById(R.id.key_d) as Button
         D.setOnClickListener {
             Key.COUNT = 2
+            Key.SHARP = true
+            startActivity(sendBack)
+        }
+        val A = findViewById(R.id.key_a) as Button
+        A.setOnClickListener {
+            Key.COUNT = 3
+            Key.SHARP = true
+            startActivity(sendBack)
+        }
+        val E = findViewById(R.id.key_e) as Button
+        E.setOnClickListener {
+            Key.COUNT = 4
+            Key.SHARP = true
+            startActivity(sendBack)
+        }
+        val B = findViewById(R.id.key_b) as Button
+        B.setOnClickListener {
+            Key.COUNT = 5
+            Key.SHARP = true
+            startActivity(sendBack)
+        }
+        val Fs = findViewById(R.id.key_fs) as Button
+        Fs.setOnClickListener {
+            Key.COUNT = 6
+            Key.SHARP = true
             startActivity(sendBack)
         }
 
