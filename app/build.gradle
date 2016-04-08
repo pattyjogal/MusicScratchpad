@@ -9,8 +9,8 @@ android {
         applicationId "com.viviose.musicscratchpad"
         minSdkVersion 14
         targetSdkVersion 23
-        versionCode 4
-        versionName "1.3a"
+        versionCode 5
+        versionName "1.4a"
     }
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -30,6 +30,7 @@ dependencies {
     compile 'com.android.support:design:23.1.1'
     compile 'com.github.amlcurran.showcaseview:library:5.4.1'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'com.github.clans:fab:1.6.2'
 
 }
 buildscript {
@@ -39,6 +40,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+
     }
 }
 repositories {
