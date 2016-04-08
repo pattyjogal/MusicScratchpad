@@ -2,17 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_rhythm"
+        android:id="@+id/action_skip"
+        android:icon="@drawable/ic_skip_next_24dp"
         android:orderInCategory="98"
-        android:title="Change note value"
-        android:icon="@drawable/ic_audiotrack_24dp_white"
+        android:title="Next chord"
         app:showAsAction="ifRoom"
         />
     <item
         android:id="@+id/action_undo"
+        android:icon="@drawable/ic_undo_24dp"
         android:orderInCategory="99"
         android:title="Undo last"
-        android:icon="@drawable/ic_undo_24dp"
         app:showAsAction="ifRoom"
         />
     <item

@@ -1,40 +1,35 @@
 package com.viviose.musicscratchpad
 
 import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
-import android.annotation.TargetApi
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Paint
 import android.graphics.drawable.VectorDrawable
 import android.media.AudioManager
-import android.media.Image
 import android.media.MediaPlayer
 import android.net.Uri
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.SwitchCompat
-import android.util.Log
-import android.view.View
 import android.support.design.widget.NavigationView
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.SwitchCompat
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.view.animation.OvershootInterpolator
 import android.widget.ImageButton
 import android.widget.LinearLayout
-import com.github.amlcurran.showcaseview.targets.ViewTarget
-import android.animation.AnimatorListenerAdapter
-import android.view.animation.OvershootInterpolator
-import java.util.ArrayList
-import com.github.clans.fab.*
+import com.github.clans.fab.FloatingActionButton
+import com.github.clans.fab.FloatingActionMenu
+import java.util.*
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     internal var rBar: LinearLayout? = null
@@ -221,8 +216,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true
-        } else if (id == R.id.action_rhythm) {
-            rBar!!.visibility = View.VISIBLE
+        } else if (id == R.id.action_skip) {
+            nextInput()
         } else if (id == R.id.action_undo) {
             if (MusicStore.activeNotes.size == 0) {
                 if (MusicStore.sheet.size > 0) {
