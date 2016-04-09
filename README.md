@@ -14,4 +14,4 @@ compositions on the phone, and will hopefully grow and develop with user feedbac
 * Play your music using built-in MIDI playback
 
 ### Recent Screencaps:
-<img src="https://zippy.gfycat.com/LeanEcstaticAfricancivet.gif" height="960" width="540">
+<img src="https://fat.gfycat.com/LeanEcstaticAfricancivet.gif" height="960" width="540">
