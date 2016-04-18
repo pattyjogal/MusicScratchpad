@@ -2,32 +2,17 @@ package com.viviose.musicscratchpad
 
 import android.annotation.TargetApi
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.graphics.Canvas
-import android.graphics.Color
-import android.graphics.Paint
-import android.graphics.Path
-import android.graphics.drawable.Drawable
+import android.graphics.*
 import android.graphics.drawable.VectorDrawable
 import android.media.MediaPlayer
 import android.net.Uri
-import android.os.Build
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
-import android.util.DisplayMetrics
 import android.util.Log
 import android.util.TypedValue
 import android.view.GestureDetector
-import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
-import android.view.ViewGroup
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
-
-import java.util.Vector
 
 /**
  * Created by Patrick on 2/2/2016.
@@ -145,11 +130,7 @@ class EditorView : View {
             }
             MotionEvent.ACTION_UP -> {
 
-                if (Settings.piano) {
 
-                    val main = MainActivity()
-                    main.nextInput()
-                }
                 drawNote = true
                 invalidate()
                 renderableNote = Note(touchX, touchY, accidental)
@@ -162,6 +143,11 @@ class EditorView : View {
                 }
                 if (renderNote) {
                     MusicStore.activeNotes.add(renderableNote)
+                }
+                if (Settings.piano) {
+
+                    val main = MainActivity()
+                    main.nextInput()
                 }
             }
         }
@@ -209,7 +195,7 @@ class EditorView : View {
             //TODO: I don't want these hardcoded obviously
             canvas.drawCircle(note.x + 20, note.y + 20, 5f, paint)
         }
-        if (accidental == 1 && note.name != Note.NoteName.b && note.name != Note.NoteName.e) {
+        if ((accidental == 1 && note.name != Note.NoteName.b && note.name != Note.NoteName.e) || note.accidental == 1) {
             val vd = ContextCompat.getDrawable(context, R.drawable.sharp) as VectorDrawable
             val b = NoteBitmap.getBitmap(vd)
             canvas.drawBitmap(Bitmap.createScaledBitmap(b, (NOTE_HEIGHT * 3 / 2).toInt(), NOTE_HEIGHT.toInt() * 3, true), note.x - NOTE_WIDTH * 2, note.y - NOTE_HEIGHT * 3 / 2, paint)

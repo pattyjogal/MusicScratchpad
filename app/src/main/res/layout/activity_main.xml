@@ -16,26 +16,6 @@
             android:id="@+id/editor_canvas"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-        <LinearLayout
-            android:id="@+id/rhythm_bar"
-            android:layout_width="200dp"
-            android:layout_height="100dp"
-            android:layout_gravity="bottom|center">
-            <HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-
-            >
-            <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dip">
-
-
-
-        </LinearLayout>
-        </HorizontalScrollView>
-        </LinearLayout>
     </FrameLayout>
     <include
         layout="@layout/app_bar_main"
