@@ -1,8 +1,6 @@
 package com.viviose.musicscratchpad
 
-import android.util.DisplayMetrics
-
-import java.util.ArrayList
+import java.util.*
 
 /**
  * Created by Patrick on 2/3/2016.
@@ -15,7 +13,7 @@ class Note(var x: Float, yC: Float, acc: Int) {
     var name: NoteName?
     var rhythm: Double = 0.toDouble()
     var octave = Octave.octave
-    internal var accidental: Int = 0
+    internal var accidental: Int = acc
     internal var SHARPS = arrayOf(arrayOf(NoteName.f, NoteName.fs), arrayOf(NoteName.c, NoteName.cs), arrayOf(NoteName.g, NoteName.gs), arrayOf(NoteName.d, NoteName.ds), arrayOf(NoteName.a, NoteName.`as`), arrayOf(NoteName.e, NoteName.f), arrayOf(NoteName.b, NoteName.c))
     internal var FLATS = arrayOf(arrayOf(NoteName.b, NoteName.`as`), arrayOf(NoteName.e, NoteName.ds), arrayOf(NoteName.a, NoteName.gs), arrayOf(NoteName.d, NoteName.cs), arrayOf(NoteName.g, NoteName.fs), arrayOf(NoteName.c, NoteName.b), arrayOf(NoteName.f, NoteName.e))
 
@@ -135,13 +133,17 @@ class Note(var x: Float, yC: Float, acc: Int) {
 
             for (i in 0..Key.COUNT - 1) {
                 if (note == SHARPS[i][0]) {
+                    accidental = 1
                     return SHARPS[i][1]
+
                 }
             }
         } else {
             for (i in 0..Key.COUNT - 1){
                 if (note == FLATS[i][0]){
+                    accidental = -1
                     return FLATS[i][1]
+
                 }
             }
         }

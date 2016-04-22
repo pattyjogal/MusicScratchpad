@@ -173,7 +173,7 @@ class EditorView : View {
         } catch (e: Exception) {
 
         }
-
+        //Gotta love gradle build times. Thanks Kotlin lmao
         if (note.y - DensityMetrics.getToolbarHeight() <= DensityMetrics.spaceHeight * 2) {
             canvas.drawLine(note.x - 200, DensityMetrics.spaceHeight + DensityMetrics.getToolbarHeight(), note.x + 200, DensityMetrics.spaceHeight + DensityMetrics.getToolbarHeight(), paint)
         }
