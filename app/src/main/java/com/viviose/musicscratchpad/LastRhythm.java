@@ -5,4 +5,5 @@ package com.viviose.musicscratchpad;
  */
 public class LastRhythm {
     public static double value = 1;
+    public static boolean dot = false;
 }

@@ -191,9 +191,10 @@ class EditorView : View {
 
 
         canvas.drawBitmap(Bitmap.createScaledBitmap(headBmap, (DensityMetrics.spaceHeight * 1.697).toInt(), DensityMetrics.spaceHeight.toInt(), true), (note.x - DensityMetrics.spaceHeight * 1.697 / 2).toInt().toFloat(), note.y - DensityMetrics.spaceHeight / 2, paint)
-        if (drawDot) {
+        if (LastRhythm.dot) {
             //TODO: I don't want these hardcoded obviously
             canvas.drawCircle(note.x + 20, note.y + 20, 5f, paint)
+            LastRhythm.dot = false
         }
         if ((accidental == 1 && note.name != Note.NoteName.b && note.name != Note.NoteName.e) || note.accidental == 1) {
             val vd = ContextCompat.getDrawable(context, R.drawable.sharp) as VectorDrawable
@@ -225,21 +226,10 @@ class EditorView : View {
             if (velY < -5000) {
                 accidental = 1
             }
-
             if (velX < -5000) {
-                if (drawDot) {
-                    LastRhythm.value /= 1.5
-                }
-                drawDot = false
+                LastRhythm.dot = true;
+            }
 
-            }
-            if (velX > 5000) {
-                if (!drawDot) {
-                    LastRhythm.value *= 1.5
-                }
-                drawDot = true
-                Log.d("Fling", "Flung")
-            }
             return true
         }
 

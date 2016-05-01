@@ -154,7 +154,11 @@ class Note(var x: Float, yC: Float, acc: Int) {
     init {
         y = snapNoteY(yC)
         name = accidental(keyAccidental(getNoteFromPosn(snapNoteY(yC) - DensityMetrics.getToolbarHeight(), ClefSetting.clef)!!), acc)
-        rhythm = LastRhythm.value
+        var r = LastRhythm.value
+        if (LastRhythm.dot) {
+            r = LastRhythm.value * 1.5;
+        }
+        rhythm = r
 
     }
 
